@@ -1,8 +1,10 @@
 const express = require('express');
+const coinspot = require('coinspot-api');
 const app = express();
 const mongo = require('mongodb').MongoClient
 const dbCollectionUser = "voteruser";
 const dbCollectionPolls = "voterpolls";
+const CS_SECRET = process.env.CS_SECRET
 let loggedIn = false;
 let offsetDefault = 10;
 let database;
@@ -34,24 +36,6 @@ function dbUpdate(user,collection,obj,name) {
   })
 }
 
-function dbVote(collection,name,option) {
-  return new Promise(function(resolve,reject) {
-    let qObj = { "name" : name };
-    dbFindOne(collection,qObj).then(function(data) {
-      let wholeObj = data;
-      console.log(wholeObj, option);
-      let newObj = wholeObj.options;
-      newObj[option] += 1;
-      wholeObj.options = newObj;
-      console.log(newObj);
-      collection.update(qObj, wholeObj, function(err, data) {
-      if (err) throw err
-      database.close;
-      resolve(wholeObj);
-      })
-    });
-  });
-}
 
 function dbFindOne(collection,obj) {
   return new Promise(function(resolve, reject) {
@@ -111,58 +95,6 @@ app.get("/", function (req, res) {
 //  res.sendfile(__dirname + '/index.html');
 //  next();
 //});
-
-app.set('view engine', 'pug');
-
-app.get("/pollshare", function (req, res) {
-  if (req.query.name) {
-    let name = req.query.name;
-    console.log(name);
-    dbFindOne(collectPoll,{"name": name}).then(function(obj) {
-      console.log(obj);
-      res.render('index', { pollObj: obj});
-    });
-  }
-});
-
-
-// User Functionality -------
-// signup routing
-app.get("/signup", function (req, res) {
-  let user = req.query.user;
-  let pass = req.query.pass;
-  exists(collectUser,{"user":user}).then(function(bool) {
-    if (bool) {
-      // already exists
-      res.send({"error": `user ${user} already exists`})
-    } else {
-      // doesn't exist
-      console.log("signup bool", bool);
-      dbInsert(collectUser,{"user":user,"pass":pass});
-      res.send({"loggedIn": true});
-    }
-  })
-});
-
-// login routing
-app.get("/login", function (req, res) {
-  let user = req.query.user;
-  let pass = req.query.pass;
-  exists(collectUser,{"user":user, "pass":pass}).then(function(bool) {
-    if (bool) {
-      // password match
-      res.send({"loggedIn": true});
-    } else {
-      // password incorrect
-      res.send({"error":`password for user ${user} incorrect`});
-    }
-  })
-});
-
-// logout routing
-app.get("/logout", function (req, res) {
-    res.send({"loggedIn": false});
-});
 
 // Poll Functionality -------
 // new poll routing
@@ -246,16 +178,6 @@ app.post("/modify", function (req, res) {
       dbUpdate(user,collectPoll,newObj,pollName);
       res.send(newObj);
     }
-  })
-});
-
-// vote routing
-app.get("/vote", function (req, res) {
-  let pollName = req.query.name;
-  let optionName = req.query.option;
-  console.log("pollname",pollName,optionName, optionName)
-  dbVote(collectPoll,pollName,optionName).then(function(obj) {
-    res.send(obj);
   })
 });
 
