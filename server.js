@@ -4,7 +4,8 @@ const app = express();
 const mongo = require('mongodb').MongoClient
 const dbCollectionUser = "voteruser";
 const dbCollectionPolls = "voterpolls";
-const CS_SECRET = process.env.CS_SECRET
+const secret = process.env.CS_SECRET;
+const key = process.env.CS_KEY;
 let loggedIn = false;
 let offsetDefault = 10;
 let database;
@@ -81,6 +82,12 @@ function dbDelete(collection,obj) {
     })
   })
 }
+
+// CS API
+let client = new coinspot(key, secret);
+client.orders('LTC',function(e, data) {
+  console.log(data);
+  });
 
 
 // http://expressjs.com/en/starter/static-files.html

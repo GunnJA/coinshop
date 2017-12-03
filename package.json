@@ -2,7 +2,6 @@
   "//1": "describes your app and its dependencies",
   "//2": "https://docs.npmjs.com/files/package.json",
   "//3": "updating this file will download and update your packages",
-
   "name": "my-glitch-app",
   "version": "0.0.1",
   "description": "What am I about?",
@@ -11,7 +10,9 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.16.2"
+    "coinspot-api": "^0.1.20",
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33"
   },
   "engines": {
     "node": "8.x"
