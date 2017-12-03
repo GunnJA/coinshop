@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "coinspot-api": "^0.1.20",
+    "crypto": "^1.0.1",
     "express": "^4.16.2",
     "mongodb": "^2.2.33"
   },

@@ -1,5 +1,5 @@
 const express = require('express');
-const coinspot = require('coinspot-api');
+const coinspot = require('./coinspot');
 const app = express();
 const mongo = require('mongodb').MongoClient
 const dbCollectionUser = "voteruser";
@@ -85,7 +85,7 @@ function dbDelete(collection,obj) {
 
 // CS API
 let client = new coinspot(key, secret);
-client.orders('LTC',function(e, data) {
+client.latest(function(e, data) {
   console.log(data);
   });
 
