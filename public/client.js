@@ -48,7 +48,11 @@ function toObject(arr) {
 
 function displayData(arr1, obj2, obj3, obj4, obj5) {
   let newHTML = `<table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr>`;
-  newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Last Price</td></tr>`;
+  newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Last Price(5)</td><td class="tg-6k2t">Δ</td>`;
+  newHTML += `<td class="tg-6k2t">Last Price(4)</td><td class="tg-6k2t">Δ</td>`;
+  newHTML += `<td class="tg-6k2t">Last Price(3)</td><td class="tg-6k2t">Δ</td>`;
+  newHTML += `<td class="tg-6k2t">Last Price(2)</td><td class="tg-6k2t">Δ</td>`;
+  newHTML += `<td class="tg-6k2t">Last Price</td></tr>`;
   $.each(arr1, function(key, value) {
     let item1 = arr1[key];
     let item1Name = item1.MarketName;
@@ -62,13 +66,13 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
     let factor1 = Math.round(((item1.Last - item2.Last)/item2.Last)*1000)
     newHTML += `<tr><td class="tg-6k2t">${item1.MarketName}</td>`;
     newHTML += `<td class="tg-6k2t">${item5.Last}</td>`;
-    newHTML += `<td class="tg-6k2t" background-color=rgb(${125-factor4}, 255, 155)>${factor4}</td>`;
+    newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor4}, 255, ${125-factor4})">${factor4}</td>`;
     newHTML += `<td class="tg-6k2t">${item4.Last}</td>`;
-    newHTML += `<td class="tg-6k2t">${factor3}</td>`;
+    newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor3}, 255, ${125-factor3})">${factor3}</td>`;
     newHTML += `<td class="tg-6k2t">${item3.Last}</td>`;
-    newHTML += `<td class="tg-6k2t">${factor2}</td>`;
+    newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor2}, 255, ${125-factor2})">${factor2}</td>`;
     newHTML += `<td class="tg-6k2t">${item2.Last}</td>`;
-    newHTML += `<td class="tg-6k2t">${factor1}</td>`;
+    newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor1}, 255, ${125-factor1})">${factor1}</td>`;
     newHTML += `<td class="tg-6k2t">${item1.Last}</td></tr>`;
     });
   newHTML += `</table>`;
