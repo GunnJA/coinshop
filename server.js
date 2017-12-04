@@ -153,9 +153,9 @@ function creator(collection) {
   });
 }
 
-//dbProm.then(function() {
-//  setInterval(recurring, 10000);
-//});
+dbProm.then(function() {
+  setInterval(recurring, 100000);
+});
 
 function recurring() {
   dropper("collectCoins5").then(function() {
