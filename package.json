@@ -10,6 +10,7 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "ccxt": "^1.10.275",
     "coinspot-api": "^0.1.20",
     "crypto": "^1.0.1",
     "express": "^4.16.2",

@@ -1,5 +1,5 @@
 const express = require('express');
-const coinspot = require('./coinspot');
+const ccxt = require ('ccxt')
 const app = express();
 const mongo = require('mongodb').MongoClient
 const dbCollectionUser = "voteruser";
@@ -84,10 +84,8 @@ function dbDelete(collection,obj) {
 }
 
 // CS API
-let client = new coinspot(key, secret);
-client.latest(function(e, data) {
-  console.log(data);
-  });
+app.get("https://bittrex.com/api/v1.1/public/getmarkets", function (req, res) {
+  let pollName = req.query.name;
 
 
 // http://expressjs.com/en/starter/static-files.html
