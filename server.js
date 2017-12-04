@@ -150,13 +150,8 @@ function creator(collection) {
 }
 
 dbProm.then(function() {
-  return new Promise(function(resolve,reject) {
-    //counter
-    //resolve(setInterval(recurring, 10000)).then(function() {
-    resolve(setTimeout(recurring, 1000)).then(function() {
-      smarts();
-    });
-  });
+  setInterval(recurring, 60000);
+  setTimeout(recurring, 1000);
 });
 
 function smarts() {
