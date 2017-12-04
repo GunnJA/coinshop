@@ -24,9 +24,13 @@ $( window ).load(function() {
         console.log("CC4",CC4.length);
   });
   $.get(`/get/CC5`, function(obj) {
-    CC5 = obj;
-        console.log("CC5",CC5.length);
-  });
+    return new Promise(function(resolve,reject) {
+      console.log("CC5",CC5.length);
+      resolve(CC5 = obj);
+    })
+    dataProm.then(function() {
+      displayData(CC1,CC2,CC3,CC4,CC5);
+    });
 });
 
 function displayData(arr1, arr2, arr3, arr4, arr5) {
