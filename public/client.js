@@ -33,7 +33,12 @@ function display(arr1, arr2, arr3, arr4, arr5) {
     let item3 = arr3[key];
     let item4 = arr4[key];
     let item5 = arr5[key];
-    newHTML += `<tr><td class="tg-6k2t">${item.MarketName}</td><td class="tg-6k2t">${item.Last}</td></tr>`;
+    newHTML += `<tr><td class="tg-6k2t">${item1.MarketName}</td>`;
+    newHTML += `<td class="tg-6k2t">${item5.Last}</td>`;
+    newHTML += `<td class="tg-6k2t">${item4.Last}</td>`;
+    newHTML += `<td class="tg-6k2t">${item3.Last}</td>`;
+    newHTML += `<td class="tg-6k2t">${item2.Last}</td>`;
+    newHTML += `<td class="tg-6k2t">${item1.Last}</td></tr>`;
       //newHTML += `<li id="${itemID}poll"><button class="editButt" data-key="${item.name}" id="${itemID}editButt">${item.name}</button>`
     });
   newHTML += `</tr></table>`
