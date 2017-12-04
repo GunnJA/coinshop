@@ -118,19 +118,23 @@ function queryMarket() {
     })
 }
 
+function processDump(array,collection) {
+  let dump = JSON.parse(array);
+  let resultspage1 = dump.result;
+  console.log(resultspage1[1].MarketName)
+  for (let i=1; i < resultspage1.length; i+= 1) {
+    let market = resultspage1[i].MarketName;
+    if (market.substring(0, 3) === "BTC") {
+      dbInsert(collection,resultspage1[i])
+    }
+  }
+}
+
 dbProm.then(function() {
   queryMarket().then(function(array) {
-    let dump = JSON.parse(array);
-    let resultspage1 = dump.result;
-    console.log(resultspage1[1].MarketName)
-    for (let i=1; i < resultspage1.length; i+= 1) {
-      let market = resultspage1[i].MarketName;
-      if (market.substring(0, 3) === "BTC") {
-        dbInsert(collectCoins1,resultspage1[i])
-      }
-    }
+    processDump(array, collectCoins7);
   })
-}); 
+});
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
