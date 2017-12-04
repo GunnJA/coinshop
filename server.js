@@ -96,7 +96,7 @@ function queryMarket() {
     let options = {
       "method": "GET",
       "hostname": "bittrex.com",
-      "path": "/api/v1.1/public/getmarkets",
+      "path": "/api/v1.1/public/getmarketsummaries",
       "port": null
     };
 
@@ -117,8 +117,11 @@ function queryMarket() {
 }
 
 queryMarket().then(function(array) {
-  console.log("arr",array[.]result);
+  let dump = JSON.parse(array);
+  let resultspage1 = dump.result;
+  console.log(resultspage1[1].MarketName)
 })
+
 
 
 // http://expressjs.com/en/starter/static-files.html
