@@ -11,7 +11,7 @@ let database;
 //let collectCoins2;
 let dump;
 let CC1 = [];
-let CC2 = [];
+let CC2 = [];//still no use for
 
 //DB functions
 let dbProm = new Promise(function(resolve, reject) {
@@ -195,7 +195,7 @@ app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
-  res.sendfile('views/index.html');
+  res.sendFile(__dirname + '/views/index.html');
 });
 
 // listen for requests :)
