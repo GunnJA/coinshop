@@ -130,21 +130,13 @@ function processDump(array,collection) {
   }
 }
 
-function dbOrg() {
-  return new Promise(function(resolve,reject) {
-    let collectCoins1 = database.collection("collectCoins1");
-    let collectCoins2 = database.collection("collectCoins2");
-    let collectCoins3 = database.collection("collectCoins3");
-    let collectCoins4 = database.collection("collectCoins4");
-    let collectCoins5 = database.collection("collectCoins5");
-    collectCoins4.rename("collectCoins5",true);
-    collectCoins3.rename("collectCoins4",true);
-    collectCoins2.rename("collectCoins3",true);
-    collectCoins1.rename("collectCoins2",true);
-    database.createCollection("collectCoins1");
+function dbOrg(collection) {
+  let collProm = Promise(function(resolve,reject) {
+    database.collection(collection).rename(`collectCoins5",true);
     resolve();
   });
 }
+
 
 
 dbProm.then(function() {
