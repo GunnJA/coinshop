@@ -14,5 +14,8 @@ $( window ).load(function() {
   newHTML += `</tr></table>`
   $("body").append(newHTML);
   });
+  $.get(`/get/CC2`, function(obj) {
+    console.log(obj);
+  });
 });
 

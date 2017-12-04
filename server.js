@@ -186,8 +186,14 @@ function recurring() {
   });
 }
 
-app.get("/get/all", function (req, res) {
+app.get("/get/latest", function (req, res) {
   res.send(CC1);
+});
+
+app.get("/get/CC2", function (req, res) {
+  dbFindAll(database.collection("collectCoins2"),{}).then(function(obj) {
+    res.send(obj);
+  });
 });
 
 // http://expressjs.com/en/starter/static-files.html
