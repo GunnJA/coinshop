@@ -55,7 +55,6 @@ function dbFindAll(collection,obj) {
   return new Promise(function(resolve, reject) {
     collection.find(obj).toArray(function(err,items) {
       if (err) throw err
-      console.log(items);
       resolve(items);
     });
   })

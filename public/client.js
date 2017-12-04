@@ -1,10 +1,21 @@
-
+let CC1;
+let CC2;
+let CC3;
+let CC4;
+let CC5;
 
 $( window ).load(function() {
    //let pollshareRoute = `${window.location.pathname}${window.location.search}`;
    //let obj = $("#existingSpace").data("key");
   $.get(`/get/latest`, function(obj) {
-    let newHTML = `<table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr>`;
+    CC1 = obj;
+  });
+  $.get(`/get/CC2`, function(obj) {
+    console.log(obj);
+  });
+});
+
+let newHTML = `<table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr>`;
     newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Last Price</td></tr>`;
     $.each(obj, function(key, value) {
       let item = obj[key];
@@ -13,9 +24,3 @@ $( window ).load(function() {
       });
   newHTML += `</tr></table>`
   $("body").append(newHTML);
-  });
-  $.get(`/get/CC2`, function(obj) {
-    console.log(obj);
-  });
-});
-
