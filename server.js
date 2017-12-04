@@ -11,14 +11,18 @@ let collectCoins1;
 let collectCoins2;
 let dump;
 
+
 //DB functions
-mongo.connect('mongodb://gunnja:gunnja@ds131854.mlab.com:31854/fccdb',(err, db) => {
-  return new Promiseif (err) throw err
-  else console.log("db connection successful")
-  collectCoins1 = db.collection("coins1");
-  collectCoins2 = db.collection("coins2");
-  database = db;
-// db.close();
+let dbProm = new Promise(function(resolve, reject) {
+  mongo.connect('mongodb://gunnja:gunnja@ds131854.mlab.com:31854/fccdb',(err, db) => {
+      if (err) throw err
+      else console.log("db connection successful")
+      collectCoins1 = db.collection("coins1");
+      collectCoins2 = db.collection("coins2");
+      database = db;
+      resolve();
+  // db.close();
+  });
 });
 
 function dbInsert(collection,obj) {
@@ -114,17 +118,19 @@ function queryMarket() {
     })
 }
 
-queryMarket().then(function(array) {
-  let dump = JSON.parse(array);
-  let resultspage1 = dump.result;
-  console.log(resultspage1[1].MarketName)
-  for (let i=1; i < resultspage1.length; i+= 1) {
-    let market = resultspage1[i].MarketName;
-    if (market.substring(0, 3) === "BTC") {
-      dbInsert(collectCoins1,resultspage1[i])
+dbProm.then(function() {
+  queryMarket().then(function(array) {
+    let dump = JSON.parse(array);
+    let resultspage1 = dump.result;
+    console.log(resultspage1[1].MarketName)
+    for (let i=1; i < resultspage1.length; i+= 1) {
+      let market = resultspage1[i].MarketName;
+      if (market.substring(0, 3) === "BTC") {
+        dbInsert(collectCoins1,resultspage1[i])
+      }
     }
-  }
-})
+  })
+}); 
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
