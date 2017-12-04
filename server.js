@@ -7,8 +7,8 @@ const key = process.env.CS_KEY;
 let loggedIn = false;
 let offsetDefault = 10;
 let database;
-let collectCoins1;
-let collectCoins2;
+//let collectCoins1;
+//let collectCoins2;
 let dump;
 
 
@@ -17,8 +17,8 @@ let dbProm = new Promise(function(resolve, reject) {
   mongo.connect('mongodb://gunnja:gunnja@ds131854.mlab.com:31854/fccdb',(err, db) => {
       if (err) throw err
       else console.log("db connection successful")
-      collectCoins1 = db.collection("coins1");
-      collectCoins2 = db.collection("coins2");
+      //collectCoins1 = db.collection("coins1");
+      //collectCoins2 = db.collection("coins2");
       database = db;
       resolve();
   // db.close();
@@ -136,16 +136,24 @@ dbProm.then(function() {
   })
 });
 
+function dbOrg() {
+  return new Promise(function(resolve,reject) {
+  collectCoins5.drop();
+  collectCoins4.renameCollection("collectCoins5");
+  collectCoins3.renameCollection("collectCoins4");
+  collectCoins2.renameCollection("collectCoins3");
+  collectCoins1.renameCollection("collectCoins2");
+  db.createCollection("collectCoins1");
+  resolve();
+  });
+}
+
 setTimeout(myFunc, 1500);
 
 function recurring() {
-  collectCoins5.remove( {} );
-  collectCoins1.renameCollection("collectCoins2");
-  collectCoins5.renameCollection("collectCoins1");
-  collectCoins2.renameCollection("collectCoins3");
-  collectCoins3.renameCollection("collectCoins4");
-  collectCoins4.renameCollection("collectCoins5");
-}
+  dbOrg();
+  
+
 
 collection1.renameCollection("collection2");
 
