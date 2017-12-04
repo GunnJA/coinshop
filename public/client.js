@@ -13,6 +13,15 @@ $( window ).load(function() {
   $.get(`/get/CC2`, function(obj) {
     console.log(obj);
   });
+  $.get(`/get/CC3`, function(obj) {
+    console.log(obj);
+  });
+  $.get(`/get/CC4`, function(obj) {
+    console.log(obj);
+  });
+  $.get(`/get/CC5`, function(obj) {
+    console.log(obj);
+  });  
 });
 
 let newHTML = `<table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr>`;

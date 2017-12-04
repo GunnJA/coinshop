@@ -195,6 +195,24 @@ app.get("/get/CC2", function (req, res) {
   });
 });
 
+app.get("/get/CC3", function (req, res) {
+  dbFindAll(database.collection("collectCoins3"),{}).then(function(obj) {
+    res.send(obj);
+  });
+});
+
+app.get("/get/CC4", function (req, res) {
+  dbFindAll(database.collection("collectCoins4"),{}).then(function(obj) {
+    res.send(obj);
+  });
+});
+
+app.get("/get/CC5", function (req, res) {
+  dbFindAll(database.collection("collectCoins5"),{}).then(function(obj) {
+    res.send(obj);
+  });
+});
+
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 
