@@ -82,7 +82,7 @@ function dbDelete(collection,obj) {
     collection.deleteOne(obj, function(err, data) {
       if (err) throw err
       else resolve({"delete": true});
-    })
+    });
   })
 }
 

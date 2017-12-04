@@ -21,10 +21,11 @@ $( window ).load(function() {
   });
   $.get(`/get/CC5`, function(obj) {
     CC5 = obj;
-  });  
+    displayData(CC1,CC2,CC3,CC4,CC5);
+  });
 });
 
-function display(arr1, arr2, arr3, arr4, arr5) {
+function displayData(arr1, arr2, arr3, arr4, arr5) {
   let newHTML = `<table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr>`;
   newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Last Price</td></tr>`;
   $.each(arr1, function(key, value) {
