@@ -11,6 +11,7 @@ let offsetDefault = 10;
 let database;
 let collectUser;
 let collectPoll;
+let dump;
 
 //DB functions
 mongo.connect('mongodb://gunnja:gunnja@ds131854.mlab.com:31854/fccdb',(err, db) => {
@@ -92,8 +93,9 @@ app.get("https://bittrex.com/api/v1.1/public/getmarkets", function (req, res) {
 function queryMarket() {
   let options = {
     "method": "GET",
-    "hostname": "https://bittrex.com/api/v1.1/public/getmarkets",
-    "port": null,
+    "hostname": "bittrex.com",
+    "path": "/api/v1.1/public/getmarkets",
+    "port": null
   };
   
   let req = http.request(options, function (res) {
@@ -105,14 +107,15 @@ function queryMarket() {
   
     res.on("end", function () {
       let body = Buffer.concat(chunks);
-      console.log(body.toString());
+      dump = body.toString();
     });
   });
   
   req.end();
 }
 
-queryMarket();
+let arr1 = queryMarket();
+
 
 
 // http://expressjs.com/en/starter/static-files.html
