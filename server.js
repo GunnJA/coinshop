@@ -130,28 +130,44 @@ function processDump(array,collection) {
   }
 }
 
-function dbOrg(collection) {
+function rename(collection) {
   return new Promise(function(resolve,reject) {
     let num = parseInt(collection.substr(12, 1));
-    console.log("num",num + 1,typeof(num));
+    console.log(collection,`collectCoins${num + 1}`);
     let coll = database.collection(collection);
     resolve(coll.rename(`collectCoins${num + 1}`));
   });
 }
 
-dbProm.then(function() {
+function dropper(collection) {
+  return new Promise(function(resolve,reject) {
+    console.log(`drop ${collection}`);
+    resolve(database.collection(collection).drop());
+  });
+}
+
+function creator(collection) {
+  return new Promise(function(resolve,reject) {
+    console.log(`create ${collection}`);
+    resolve(database.createCollection(collection));
+  });
+}
+
+//dbProm.then(function() {
   setInterval(recurring, 10000);
 });
 
 function recurring() {
-  database.collection("collectCoins5").drop();
-  dbOrg("collectCoins4").then(function() {
-    dbOrg("collectCoins3").then(function() {
-      dbOrg("collectCoins2",).then(function() {
-        dbOrg("collectCoins1").then(function() {
-          database.createCollection("collectCoins1");
-          queryMarket().then(function(array) {
-            processDump(array, database.collection("collectCoins1"));
+  dropper("collectCoins5").then(function() {
+    rename("collectCoins4").then(function() {
+      rename("collectCoins3").then(function() {
+        rename("collectCoins2",).then(function() {
+          rename("collectCoins1").then(function() {
+            creator("collectCoins1").then(function() {
+              queryMarket().then(function(array) {
+                processDump(array, database.collection("collectCoins1"));
+              });
+            });
           });
         });
       });
