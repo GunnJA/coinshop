@@ -3,7 +3,7 @@
 $( window ).load(function() {
    //let pollshareRoute = `${window.location.pathname}${window.location.search}`;
    //let obj = $("#existingSpace").data("key");
-  $.get(`/get/all`, function(obj) {
+  $.get(`/get/latest`, function(obj) {
     let newHTML = `<table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr>`;
     newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Last Price</td></tr>`;
     $.each(obj, function(key, value) {
@@ -15,6 +15,4 @@ $( window ).load(function() {
   $("body").append(newHTML);
   });
 });
-
-
 
