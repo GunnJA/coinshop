@@ -11,6 +11,7 @@ let database;
 //let collectCoins2;
 let dump;
 let CC1 = [];
+let CC2 = [];
 
 
 //DB functions
@@ -167,14 +168,14 @@ dbProm.then(function() {
 
 function smarts() {
   for (let i=1; i < CC1.length; i+= 1) {
-      let market = resultspage1[i].MarketName;
-      if (market.substring(0, 3) === "BTC") {
-        dbInsert(collection,resultspage1[i]);
-        CC1.push(resultspage1[i]);
-      }
+    let market = CC1[i].MarketName;
+    let
+  }
 }
 
 function recurring() {
+  CC2 = CC1;
+  CC1 = [];
   dropper("collectCoins5").then(function() {
     rename("collectCoins4").then(function() {
       rename("collectCoins3").then(function() {
