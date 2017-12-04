@@ -1,5 +1,5 @@
 const express = require('express');
-const ccxt = require ('ccxt')
+const http = require("https");
 const app = express();
 const mongo = require('mongodb').MongoClient
 const dbCollectionUser = "voteruser";
@@ -85,7 +85,34 @@ function dbDelete(collection,obj) {
 
 // CS API
 app.get("https://bittrex.com/api/v1.1/public/getmarkets", function (req, res) {
-  let pollName = req.query.name;
+  console.log(res);
+});
+
+// yelp api req
+function queryMarket() {
+  let options = {
+    "method": "GET",
+    "hostname": "https://bittrex.com/api/v1.1/public/getmarkets",
+    "port": null,
+  };
+  
+  let req = http.request(options, function (res) {
+    let chunks = [];
+  
+    res.on("data", function (chunk) {
+      chunks.push(chunk);
+    });
+  
+    res.on("end", function () {
+      let body = Buffer.concat(chunks);
+      console.log(body.toString());
+    });
+  });
+  
+  req.end();
+}
+
+queryMarket();
 
 
 // http://expressjs.com/en/starter/static-files.html
