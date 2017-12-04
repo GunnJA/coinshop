@@ -133,20 +133,18 @@ function processDump(array,collection) {
 function dbOrg(collection,del) {
   return new Promise(function(resolve,reject) {
     let num = parseInt(collection.substr(12, 1));
-    console.log("num",num,type(num));
+    console.log("num",num + 1,typeof(num));
     let coll = database.collection(collection);
-    coll.rename(`collectCoins${num + 1}`,del);
-    resolve();
+    resolve(coll.rename(`collectCoins${num + 1}`,del));
   });
 }
-
-
 
 dbProm.then(function() {
   setTimeout(recurring, 10000);
 });
 
 function recurring() {
+  database.collection("collectCoins5").drop()
   dbOrg("collectCoins4",true).then(function() {
     dbOrg("collectCoins3",false).then(function() {
       dbOrg("collectCoins2",false).then(function() {
