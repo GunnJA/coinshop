@@ -136,6 +136,15 @@ dbProm.then(function() {
   })
 });
 
+setTimeout(myFunc, 1500);
+
+function recurring() {
+  collection5.r
+  collection1.renameCollection("collection2");
+}
+
+collection1.renameCollection("collection2");
+
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 
