@@ -137,27 +137,25 @@ function dbOrg() {
     let collectCoins3 = database.collection("collectCoins3");
     let collectCoins4 = database.collection("collectCoins4");
     let collectCoins5 = database.collection("collectCoins5");
-    if (database.collectCoins5) {
-      database.collectCoins5.drop();
-    }
-    collectCoins4.renameCollection("collectCoins5");
-    collectCoins3.renameCollection("collectCoins4");
-    collectCoins2.renameCollection("collectCoins3");
-    collectCoins1.renameCollection("collectCoins2");
+    collectCoins4.rename("collectCoins5",true);
+    collectCoins3.rename("collectCoins4",true);
+    collectCoins2.rename("collectCoins3",true);
+    collectCoins1.rename("collectCoins2",true);
     database.createCollection("collectCoins1");
     resolve();
   });
 }
 
+
 dbProm.then(function() {
-  setTimeout(recurring, 60000);
+  setTimeout(recurring, 10000);
 });
 
 function recurring() {
   dbOrg().then(function() {
     queryMarket().then(function(array) {
       processDump(array, database.collectCoins1);
-    })
+    });
   });
 }
   
