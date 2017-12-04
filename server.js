@@ -121,11 +121,11 @@ function queryMarket() {
 function processDump(array,collection) {
   let dump = JSON.parse(array);
   let resultspage1 = dump.result;
-  console.log(resultspage1[1].MarketName)
+  console.log(resultspage1[1].MarketName);
   for (let i=1; i < resultspage1.length; i+= 1) {
     let market = resultspage1[i].MarketName;
     if (market.substring(0, 3) === "BTC") {
-      dbInsert(collection,resultspage1[i])
+      dbInsert(collection,resultspage1[i]);
     }
   }
 }
@@ -149,7 +149,7 @@ function recurring() {
     dbOrg("collectCoins3",false).then(function() {
       dbOrg("collectCoins2",false).then(function() {
         dbOrg("collectCoins1",false).then(function() {
-          //database.createCollection("collectCoins1");
+          database.createCollection("collectCoins1");
           queryMarket().then(function(array) {
             processDump(array, database.collection("collectCoins1"));
           });
