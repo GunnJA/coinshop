@@ -160,7 +160,7 @@ dbProm.then(function() {
 });
 
 function smarts() {
-  for (let i=1; i < CC1.length; i+= 1) {
+  for (let i=0; i < CC1.length; i+= 1) {
     let market = CC1[i].MarketName;
   }
 }

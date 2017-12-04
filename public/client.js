@@ -12,13 +12,14 @@ $( window ).load(function() {
     console.log("CC1",CC1.length);
   });
   getData("CC2").then(function(obj2) {
-    CC2 = obj2;
+    CC2 = toObject(obj2);
     getData("CC3").then(function(obj3) {
-      CC3 = obj3;
+      CC3 = toObject(obj3);
       getData("CC4").then(function(obj4) {
-        CC4 = obj4;
+        CC4 = toObject(obj4);
         getData("CC5").then(function(obj5) {
-          displayData(CC1,CC2,CC3,CC4,obj5);
+          CC5 = toObject(obj5);
+          displayData(CC1,CC2,CC3,CC4,CC5);
         });
       });
     });
@@ -34,12 +35,22 @@ function getData(CC) {
   });
 }
 
-function displayData(arr1, arr2, arr3, arr4, arr5) {
+function toObject(arr) {
+  var newObj = {};
+  for (var i = 0; i < arr.length; ++i) {
+    let name = arr[i].MarketName;
+    newObj.name = arr[i];
+  }
+  return newObj;
+}
+
+function displayData(arr1, obj2, obj3, obj4, obj5) {
   let newHTML = `<table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr>`;
   newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Last Price</td></tr>`;
   $.each(arr1, function(key, value) {
     let item1 = arr1[key];
-    let item2 = arr2[key];
+    let name item1.MarketName
+    let item2 = obj2[key];
     let item3 = arr3[key];
     let item4 = arr4[key];
     let item5 = arr5[key];
