@@ -4,13 +4,14 @@ $( window ).load(function() {
    //let pollshareRoute = `${window.location.pathname}${window.location.search}`;
    //let obj = $("#existingSpace").data("key");
   $.get(`/get/all`, function(obj) {
-    let newHTML = `<ul id="polls">List of Coins:<br>`;
+    let newHTML = `<table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr><tr>`;
     $.each(obj, function(key, value) {
-      itemID -= 1;
-      let item = data[itemID];
-      newHTML += `<li id="${itemID}poll"><button class="editButt" data-key="${item.name}" id="${itemID}editButt">${item.name}</button>`
-      newHTML += `<button class="delButt" data-key="${item.name}" id="${itemID}delButt" ${hide}>Delete</button></li>`
+      let item = obj[key];
+      newHTML += `<td class="tg-6k2t">${item.MarketName}</td>`;
+      //newHTML += `<li id="${itemID}poll"><button class="editButt" data-key="${item.name}" id="${itemID}editButt">${item.name}</button>`
       });
+  
+  $("body").append(newHTML);
   });
 });
 
