@@ -25,7 +25,7 @@ $( window ).load(function() {
   });
   let lastProm = new Promise(function(resolve,reject) {
     $.get(`/get/CC5`, function(obj) {
-      console.log("CC5",CC5.length);
+      //console.log("CC5",CC5.length);
       resolve(CC5 = obj);
     });
   });
