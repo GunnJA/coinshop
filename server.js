@@ -130,11 +130,12 @@ function processDump(array,collection) {
   }
 }
 
-function dbOrg(collection) {
+function dbOrg(collection,del) {
   return new Promise(function(resolve,reject) {
-    console.log("num",collection.substr(11, 1));
-    let num = collection.substr(11, 1)
-    database.collection(collection).rename(`collectCoins${num + 1}`,true);
+    let num = parseInt(collection.substr(12, 1));
+    console.log("num",num,type(num));
+    let coll = database.collection(collection);
+    coll.rename(`collectCoins${num + 1}`,del);
     resolve();
   });
 }
@@ -146,12 +147,13 @@ dbProm.then(function() {
 });
 
 function recurring() {
-  dbOrg("collectCoin4").then(function() {
-    dbOrg("collectCoin3").then(function() {
-      dbOrg("collectCoin2").then(function() {
-        dbOrg("collectCoin1").then(function() {
+  dbOrg("collectCoins4",true).then(function() {
+    dbOrg("collectCoins3",false).then(function() {
+      dbOrg("collectCoins2",false).then(function() {
+        dbOrg("collectCoins1",false).then(function() {
+          database.createCollection("collectCoins1");
           queryMarket().then(function(array) {
-            processDump(array, database.collectCoins1);
+            processDump(array, database.collection("collectCoins1"));
           });
         });
       });
