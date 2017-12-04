@@ -13,7 +13,6 @@ let dump;
 let CC1 = [];
 let CC2 = [];
 
-
 //DB functions
 let dbProm = new Promise(function(resolve, reject) {
   mongo.connect('mongodb://gunnja:gunnja@ds131854.mlab.com:31854/fccdb',(err, db) => {
