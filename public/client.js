@@ -7,9 +7,15 @@ let CC5;
 $( window ).load(function() {
    //let pollshareRoute = `${window.location.pathname}${window.location.search}`;
    //let obj = $("#existingSpace").data("key");
+  recurring();
+});
+
+setInterval(recurring, 10000);
+
+
+function recurring() {
   $.get(`/get/latest`, function(arr) {
     CC1 = arr;
-    console.log("CC1",CC1.length);
   });
   getData("CC2").then(function(obj2) {
     CC2 = toObject(obj2);
@@ -26,7 +32,7 @@ $( window ).load(function() {
       });
     });
   });
-});
+}
 
 function getData(CC) {
   return new Promise(function(resolve,reject) {
@@ -47,7 +53,7 @@ function toObject(arr) {
 }
 
 function displayData(arr1, obj2, obj3, obj4, obj5) {
-  let newHTML = `<table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr>`;
+  let newHTML = `<div id="containerDiv"><table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr>`;
   newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Last Price(5)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(4)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(3)</td><td class="tg-6k2t">Δ</td>`;
@@ -75,6 +81,7 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
     newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor1}, 255, ${125-factor1})">${factor1}</td>`;
     newHTML += `<td class="tg-6k2t">${item1.Last}</td></tr>`;
     });
-  newHTML += `</table>`;
-  $("body").append(newHTML);
+  newHTML += `</table></div>`;
+  $("#containerDiv").remove();
+  $("#tableDiv").append(newHTML);
 }
