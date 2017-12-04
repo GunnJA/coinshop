@@ -152,7 +152,7 @@ function creator(collection) {
 dbProm.then(function() {
   return new Promise(function(resolve,reject) {
     //counter
-    //resolve(setInterval(recurring, 100000)).then(function() {
+    //resolve(setInterval(recurring, 10000)).then(function() {
     resolve(setTimeout(recurring, 1000)).then(function() {
       smarts();
     });

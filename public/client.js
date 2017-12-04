@@ -52,10 +52,10 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
   $.each(arr1, function(key, value) {
     let item1 = arr1[key];
     let item1Name = item1.MarketName;
-    let item2 = obj2[item1Name;
-    let item3 = obj3.item1Name;
-    let item4 = obj4.item1Name;
-    let item5 = obj5.item1Name;
+    let item2 = obj2[item1Name];
+    let item3 = obj3[item1Name];
+    let item4 = obj4[item1Name];
+    let item5 = obj5[item1Name];
     newHTML += `<tr><td class="tg-6k2t">${item1.MarketName}</td>`;
     newHTML += `<td class="tg-6k2t">${item5.Last}</td>`;
     newHTML += `<td class="tg-6k2t">${item4.Last}</td>`;
