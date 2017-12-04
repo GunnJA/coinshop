@@ -11,7 +11,7 @@ $( window ).load(function() {
     CC1 = obj;
     console.log("CC1",CC1.length);
   });
-  $.get(`/get/CC2`, function(obj) {
+  getData(CC1), function(obj) {
     CC2 = obj;
         console.log("CC2",CC2.length);
   });
@@ -26,13 +26,23 @@ $( window ).load(function() {
   let lastProm = new Promise(function(resolve,reject) {
     $.get(`/get/CC5`, function(obj) {
       //console.log("CC5",CC5.length);
-      resolve(CC5 = obj);
+      resolve(obj);
     });
   });
-  lastProm.then(function() {
+  lastProm.then(function(obj) {
+    CC5 = obj;
     displayData(CC1,CC2,CC3,CC4,CC5);
   });
 });
+
+function getData(CC) {
+  return new Promise(function(resolve,reject) {
+    $.get(`/get/${CC}`, function(obj) {
+      //console.log("CC5",CC5.length);
+      resolve(obj);
+    });
+  });
+}
 
 function displayData(arr1, arr2, arr3, arr4, arr5) {
   let newHTML = `<table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr>`;
