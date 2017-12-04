@@ -140,16 +140,16 @@ function dbOrg(collection,del) {
 }
 
 dbProm.then(function() {
-  setTimeout(recurring, 10000);
+  setInterval(recurring, 300000);
 });
 
 function recurring() {
-  database.collection("collectCoins5").drop()
+  database.collection("collectCoins5").drop();
   dbOrg("collectCoins4",true).then(function() {
     dbOrg("collectCoins3",false).then(function() {
       dbOrg("collectCoins2",false).then(function() {
         dbOrg("collectCoins1",false).then(function() {
-          database.createCollection("collectCoins1");
+          //database.createCollection("collectCoins1");
           queryMarket().then(function(array) {
             processDump(array, database.collection("collectCoins1"));
           });
