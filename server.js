@@ -9,7 +9,7 @@ const key = process.env.CS_KEY;
 let loggedIn = false;
 let offsetDefault = 10;
 let database;
-let collectUser;
+let collectCoins1;
 let collectPoll;
 let dump;
 
@@ -120,6 +120,12 @@ queryMarket().then(function(array) {
   let dump = JSON.parse(array);
   let resultspage1 = dump.result;
   console.log(resultspage1[1].MarketName)
+  for (let i=1; i < resultspage1.length; i+= 1) {
+    let market = resultspage1[i].MarketName;
+    if (market.substring(0, 3) === "BTC") {
+      console.log(market);
+    }
+  }
 })
 
 
