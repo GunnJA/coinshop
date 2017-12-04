@@ -44,8 +44,8 @@ function displayData(arr1, arr2, arr3, arr4, arr5) {
     newHTML += `<td class="tg-6k2t">${item3.Last}</td>`;
     newHTML += `<td class="tg-6k2t">${item2.Last}</td>`;
     newHTML += `<td class="tg-6k2t">${item1.Last}</td></tr>`;
-      //newHTML += `<li id="${itemID}poll"><button class="editButt" data-key="${item.name}" id="${itemID}editButt">${item.name}</button>`
     });
-  newHTML += `</tr></table>`
+  newHTML += `</table>`;
+  console.log(newHTML);
   $("body").append(newHTML);
 }
