@@ -10,6 +10,7 @@ let database;
 //let collectCoins1;
 //let collectCoins2;
 let dump;
+let CC1 = [];
 
 
 //DB functions
@@ -91,7 +92,7 @@ app.get("https://bittrex.com/api/v1.1/public/getmarkets", function (req, res) {
   console.log(res);
 });
 
-// yelp api req
+// bittrex api req
 function queryMarket() {
   return new Promise(function(resolve,reject) {
     let result;
@@ -126,6 +127,7 @@ function processDump(array,collection) {
     let market = resultspage1[i].MarketName;
     if (market.substring(0, 3) === "BTC") {
       dbInsert(collection,resultspage1[i]);
+      CC1.push(resultspage1[i]);
     }
   }
 }
@@ -154,8 +156,23 @@ function creator(collection) {
 }
 
 dbProm.then(function() {
-  setInterval(recurring, 100000);
+  return new Promise(function(resolve,reject) {
+    //counter
+    //resolve(setInterval(recurring, 100000)).then(function() {
+    resolve(setTimeout(recurring, 1000)).then(function() {
+      smarts();
+    });
+  });
 });
+
+function smarts() {
+  for (let i=1; i < CC1.length; i+= 1) {
+      let market = resultspage1[i].MarketName;
+      if (market.substring(0, 3) === "BTC") {
+        dbInsert(collection,resultspage1[i]);
+        CC1.push(resultspage1[i]);
+      }
+}
 
 function recurring() {
   dropper("collectCoins5").then(function() {
