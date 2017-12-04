@@ -58,7 +58,7 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
     let item5 = obj5[item1Name];
     newHTML += `<tr><td class="tg-6k2t">${item1.MarketName}</td>`;
     newHTML += `<td class="tg-6k2t">${item5.Last}</td>`;
-    newHTML += `<td class="tg-6k2t">${(((item5.Last - item4.Last)/item5.Last)*1000)}</td>`;
+    newHTML += `<td class="tg-6k2t">${Math.round(((item4.Last - item5.Last)/item5.Last)*1000)}</td>`;
     newHTML += `<td class="tg-6k2t">${item4.Last}</td>`;
     newHTML += `<td class="tg-6k2t">${item3.Last}</td>`;
     newHTML += `<td class="tg-6k2t">${item2.Last}</td>`;
