@@ -166,7 +166,6 @@ function smarts() {
 }
 
 function recurring() {
-  CC2 = CC1;
   CC1 = [];
   dropper("collectCoins5").then(function() {
     rename("collectCoins4").then(function() {

@@ -11,27 +11,17 @@ $( window ).load(function() {
     CC1 = obj;
     console.log("CC1",CC1.length);
   });
-  getData(CC1), function(obj) {
-    CC2 = obj;
-        console.log("CC2",CC2.length);
-  });
-  $.get(`/get/CC3`, function(obj) {
-    CC3 = obj;
-        console.log("CC3",CC3.length);
-  });
-  $.get(`/get/CC4`, function(obj) {
-    CC4 = obj;
-        console.log("CC4",CC4.length);
-  });
-  let lastProm = new Promise(function(resolve,reject) {
-    $.get(`/get/CC5`, function(obj) {
-      //console.log("CC5",CC5.length);
-      resolve(obj);
+  getData("CC2").then(function(obj2) {
+    CC2 = obj2;
+    getData("CC3").then(function(obj3) {
+      CC3 = obj3;
+      getData("CC4").then(function(obj4) {
+        CC4 = obj4;
+        getData("CC5").then(function(obj5) {
+          displayData(CC1,CC2,CC3,CC4,obj5);
+        });
+      });
     });
-  });
-  lastProm.then(function(obj) {
-    CC5 = obj;
-    displayData(CC1,CC2,CC3,CC4,CC5);
   });
 });
 
@@ -61,6 +51,5 @@ function displayData(arr1, arr2, arr3, arr4, arr5) {
     newHTML += `<td class="tg-6k2t">${item1.Last}</td></tr>`;
     });
   newHTML += `</table>`;
-  console.log(newHTML);
   $("body").append(newHTML);
 }
