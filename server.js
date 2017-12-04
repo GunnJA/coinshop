@@ -130,8 +130,6 @@ function processDump(array,collection) {
   }
 }
 
-
-
 function dbOrg() {
   return new Promise(function(resolve,reject) {
   database.collectCoins5.drop();
@@ -144,20 +142,18 @@ function dbOrg() {
   });
 }
 
-setTimeout(myFunc, 1500);
+dbProm.then(function() {
+  setTimeout(recurring, 60000);
+});
 
 function recurring() {
   dbOrg().then(function() {
-    dbProm.then(function() {
-      queryMarket().then(function(array) {
-        processDump(array, collectCoins1);
-      })
-    });
+    queryMarket().then(function(array) {
+      processDump(array, database.collectCoins1);
+    })
   });
+}
   
-
-
-collection1.renameCollection("collection2");
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
