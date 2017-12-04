@@ -91,31 +91,34 @@ app.get("https://bittrex.com/api/v1.1/public/getmarkets", function (req, res) {
 
 // yelp api req
 function queryMarket() {
-  let options = {
-    "method": "GET",
-    "hostname": "bittrex.com",
-    "path": "/api/v1.1/public/getmarkets",
-    "port": null
-  };
-  
-  let req = http.request(options, function (res) {
-    let chunks = [];
-  
-    res.on("data", function (chunk) {
-      chunks.push(chunk);
+  return new Promise(function(resolve,reject) {
+    let result;
+    let options = {
+      "method": "GET",
+      "hostname": "bittrex.com",
+      "path": "/api/v1.1/public/getmarkets",
+      "port": null
+    };
+
+    let req = http.request(options, function (res) {
+      let chunks = [];
+
+      res.on("data", function (chunk) {
+        chunks.push(chunk);
+      });
+
+      res.on("end", function () {
+        let body = Buffer.concat(chunks);
+        resolve(body.toString());
+      });
     });
-  
-    res.on("end", function () {
-      let body = Buffer.concat(chunks);
-      dump = body.toString();
-    });
-  });
-  
-  req.end();
+    req.end();
+    })
 }
 
-let arr1 = queryMarket();
-
+queryMarket().then(function(array) {
+  console.log("arr",array[.]result);
+})
 
 
 // http://expressjs.com/en/starter/static-files.html
