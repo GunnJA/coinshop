@@ -87,11 +87,6 @@ function dbDelete(collection,obj) {
   })
 }
 
-// CS API
-app.get("https://bittrex.com/api/v1.1/public/getmarkets", function (req, res) {
-  console.log(res);
-});
-
 // bittrex api req
 function queryMarket() {
   return new Promise(function(resolve,reject) {
@@ -168,7 +163,6 @@ dbProm.then(function() {
 function smarts() {
   for (let i=1; i < CC1.length; i+= 1) {
     let market = CC1[i].MarketName;
-    let
   }
 }
 
@@ -191,14 +185,17 @@ function recurring() {
     });
   });
 }
-  
+
+app.get("/get/all", function (req, res) {
+  res.send(CC1);
+});
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
-  res.sendfile(__dirname + '/index.html');
+  res.sendfile('views/index.html');
 });
 
 // listen for requests :)
