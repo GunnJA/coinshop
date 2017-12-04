@@ -11,19 +11,20 @@ $( window ).load(function() {
     CC1 = obj;
   });
   $.get(`/get/CC2`, function(obj) {
-    console.log(obj);
+    CC2 = obj;
   });
   $.get(`/get/CC3`, function(obj) {
-    console.log(obj);
+    CC3 = obj;
   });
   $.get(`/get/CC4`, function(obj) {
-    console.log(obj);
+    CC4 = obj;
   });
   $.get(`/get/CC5`, function(obj) {
-    console.log(obj);
+    CC5 = obj;
   });  
 });
 
+function display() {
 let newHTML = `<table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr>`;
     newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Last Price</td></tr>`;
     $.each(obj, function(key, value) {
@@ -33,3 +34,4 @@ let newHTML = `<table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Market
       });
   newHTML += `</tr></table>`
   $("body").append(newHTML);
+}
