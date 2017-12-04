@@ -41,7 +41,7 @@ function coinspot(key, secret) {
 				callback(null, data);
 			});
 		}).on("error", function(e){
-			callback(e, data);
+			callback(e);
 		});
 
 		req.write(stringmessage);
@@ -90,7 +90,7 @@ function coinspot(key, secret) {
 		request('/api/my/sell', data, callback);
 	}
   
-  self.latest = function(cointype, callback) {
+  self.latest = function(callback) {
 		request('/api/latest', callback);
 	}
 }
