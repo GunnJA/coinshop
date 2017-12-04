@@ -28,7 +28,7 @@ let dbProm = new Promise(function(resolve, reject) {
 function dbInsert(collection,obj) {
   collection.insert(obj, function(err, data) {
     if (err) throw err
-    database.close;
+    //database.close;
   })
 }
 
@@ -132,13 +132,20 @@ function processDump(array,collection) {
 
 function dbOrg() {
   return new Promise(function(resolve,reject) {
-  database.collectCoins5.drop();
-  database.collectCoins4.renameCollection("collectCoins5");
-  database.collectCoins3.renameCollection("collectCoins4");
-  database.collectCoins2.renameCollection("collectCoins3");
-  database.collectCoins1.renameCollection("collectCoins2");
-  database.createCollection("collectCoins1");
-  resolve();
+    let collectCoins1 = database.collection("collectCoins1");
+    let collectCoins2 = database.collection("collectCoins2");
+    let collectCoins3 = database.collection("collectCoins3");
+    let collectCoins4 = database.collection("collectCoins4");
+    let collectCoins5 = database.collection("collectCoins5");
+    if (database.collectCoins5) {
+      database.collectCoins5.drop();
+    }
+    collectCoins4.renameCollection("collectCoins5");
+    collectCoins3.renameCollection("collectCoins4");
+    collectCoins2.renameCollection("collectCoins3");
+    collectCoins1.renameCollection("collectCoins2");
+    database.createCollection("collectCoins1");
+    resolve();
   });
 }
 
