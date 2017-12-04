@@ -130,20 +130,16 @@ function processDump(array,collection) {
   }
 }
 
-dbProm.then(function() {
-  queryMarket().then(function(array) {
-    processDump(array, collectCoins7);
-  })
-});
+
 
 function dbOrg() {
   return new Promise(function(resolve,reject) {
-  collectCoins5.drop();
-  collectCoins4.renameCollection("collectCoins5");
-  collectCoins3.renameCollection("collectCoins4");
-  collectCoins2.renameCollection("collectCoins3");
-  collectCoins1.renameCollection("collectCoins2");
-  db.createCollection("collectCoins1");
+  database.collectCoins5.drop();
+  database.collectCoins4.renameCollection("collectCoins5");
+  database.collectCoins3.renameCollection("collectCoins4");
+  database.collectCoins2.renameCollection("collectCoins3");
+  database.collectCoins1.renameCollection("collectCoins2");
+  database.createCollection("collectCoins1");
   resolve();
   });
 }
@@ -151,7 +147,13 @@ function dbOrg() {
 setTimeout(myFunc, 1500);
 
 function recurring() {
-  dbOrg();
+  dbOrg().then(function() {
+    dbProm.then(function() {
+      queryMarket().then(function(array) {
+        processDump(array, collectCoins1);
+      })
+    });
+  });
   
 
 
