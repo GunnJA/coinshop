@@ -21,7 +21,7 @@ function coinspot(key, secret) {
 
 		var options = {
 			rejectUnauthorized: false,
-			method: 'POST',
+			method: 'GET',
 			host: 'www.coinspot.com.au',
 			port: 443,
 			path: path,
@@ -91,7 +91,7 @@ function coinspot(key, secret) {
 	}
   
   self.latest = function(callback) {
-		request('/api/latest', callback);
+		request('/api/latest', {},callback);
 	}
 }
 
