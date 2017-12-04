@@ -9,18 +9,23 @@ $( window ).load(function() {
    //let obj = $("#existingSpace").data("key");
   $.get(`/get/latest`, function(obj) {
     CC1 = obj;
+    console.log("CC1",CC1.length);
   });
   $.get(`/get/CC2`, function(obj) {
     CC2 = obj;
+        console.log("CC2",CC2.length);
   });
   $.get(`/get/CC3`, function(obj) {
     CC3 = obj;
+        console.log("CC3",CC3.length);
   });
   $.get(`/get/CC4`, function(obj) {
     CC4 = obj;
+        console.log("CC4",CC4.length);
   });
   $.get(`/get/CC5`, function(obj) {
     CC5 = obj;
+        console.log("CC5",CC5.length);
   });
 });
 
