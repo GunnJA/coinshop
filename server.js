@@ -11,7 +11,6 @@ let database;
 //let collectCoins2;
 let dump;
 let CC1 = [];
-let CC2 = [];//still no use for
 
 //DB functions
 let dbProm = new Promise(function(resolve, reject) {
