@@ -139,8 +139,12 @@ dbProm.then(function() {
 setTimeout(myFunc, 1500);
 
 function recurring() {
-  collection5.r
-  collection1.renameCollection("collection2");
+  collectCoins5.remove( {} );
+  collectCoins1.renameCollection("collectCoins2");
+  collectCoins5.renameCollection("collectCoins1");
+  collectCoins2.renameCollection("collectCoins3");
+  collectCoins3.renameCollection("collectCoins4");
+  collectCoins4.renameCollection("collectCoins5");
 }
 
 collection1.renameCollection("collection2");
