@@ -10,7 +10,7 @@ $( window ).load(function() {
   recurring();
 });
 
-setInterval(recurring, 60000);
+setInterval(recurring, 120000);
 
 
 function recurring() {
