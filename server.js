@@ -137,9 +137,11 @@ function rename(collection) {
 function dropper(collection) {
   return new Promise(function(resolve,reject) {
     console.log(`drop ${collection}`);
-    resolve(if (database.collection(collection) {
-        database.collection(collection).drop());
-    })
+    if (database.collection(collection)) {
+        resolve(database.collection(collection).drop());
+    } else {
+        resolve(console.log(`${collection} not found`));             
+    }
   });
 }
 
