@@ -137,6 +137,7 @@ function rename(collection) {
 function dropper(collection) {
   return new Promise(function(resolve,reject) {
     console.log(`drop ${collection}`);
+    if database.collection(collection)
     resolve(database.collection(collection).drop());
   });
 }
