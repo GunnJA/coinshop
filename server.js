@@ -149,7 +149,7 @@ function creator(collection) {
 }
 
 dbProm.then(function() {
-  setInterval(recurring, 30000);
+  setInterval(recurring, 10000);
   setTimeout(recurring, 1000);
 });
 
