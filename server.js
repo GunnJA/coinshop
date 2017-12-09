@@ -124,6 +124,7 @@ function queryOrders(market) {
     };
 
     let req = http.request(options, function (res) {
+      let sumArr = 
       let chunks = [];
 
       res.on("data", function (chunk) {
