@@ -112,6 +112,33 @@ function queryMarket() {
     })
 }
 
+// bittrex order api req
+function queryOrders() {
+  return new Promise(function(resolve,reject) {
+    let result;
+    let options = {
+      "method": "GET",
+      "hostname": "bittrex.com",
+      "path": "/api/v1.1/public/getmarketsummaries",
+      "port": null
+    };
+
+    let req = http.request(options, function (res) {
+      let chunks = [];
+
+      res.on("data", function (chunk) {
+        chunks.push(chunk);
+      });
+
+      res.on("end", function () {
+        let body = Buffer.concat(chunks);
+        resolve(body.toString());
+      });
+    });
+    req.end();
+    })
+}
+
 function processDump(array,collection) {
   let dump = JSON.parse(array);
   let resultspage1 = dump.result;
@@ -156,7 +183,7 @@ function creator(collection) {
 }
 
 dbProm.then(function() {
-  setInterval(recurring, 10000);
+  setInterval(recurring, 100000);
   setTimeout(recurring, 1000);
 });
 
