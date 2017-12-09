@@ -119,7 +119,7 @@ function queryOrders() {
     let options = {
       "method": "GET",
       "hostname": "bittrex.com",
-      "path": "/api/v1.1/public/getmarketsummaries",
+      "path": "/api/v1.1/public/getmarkethistory",
       "port": null
     };
 
