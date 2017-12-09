@@ -113,13 +113,13 @@ function queryMarket() {
 }
 
 // bittrex order api req
-function queryOrders() {
+function queryOrders(market) {
   return new Promise(function(resolve,reject) {
     let result;
     let options = {
       "method": "GET",
       "hostname": "bittrex.com",
-      "path": "/api/v1.1/public/getmarkethistory",
+      "path": "/api/v1.1/public/getmarkethistory?market=${market}`",
       "port": null
     };
 
