@@ -174,11 +174,10 @@ function processDump(array,collection) {
       queryOrders(market).then(function(obj) {
         //console.log("orderObj", obj);
         console.log("Market",market);
-        let entryObj = { market : 
-                             {"results": resultspage1[i],
+        let entryObj = {};
+        entryObj[market] = {"results": resultspage1[i],
                              "orderData": obj
-                             }
-                            };
+                             };
         console.log(entryObj)
         dbInsert(collection,entryObj);
         //console.log(entryObj);
@@ -222,12 +221,6 @@ dbProm.then(function() {
   //setInterval(recurring, 100000);
   setTimeout(recurring, 1000);
 });
-
-function smarts() {
-  for (let i=0; i < CC1.length; i+= 1) {
-    let market = CC1[i].MarketName;
-  }
-}
 
 function recurring() {
   CC1 = [];

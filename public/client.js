@@ -46,7 +46,7 @@ function getData(CC) {
 function toObject(arr) {
   var newObj = {};
   for (var i = 0; i < arr.length; ++i) {
-    let name = arr[i].MarketName;
+    let name = arr[i]MarketName;
     newObj[name] = arr[i];
   }
   console.log("newObj",newObj);
