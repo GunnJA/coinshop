@@ -171,14 +171,17 @@ function processDump(array,collection) {
   for (let i=1; i < resultspage1.length; i+= 1) {
     let market = resultspage1[i].MarketName;
     if (market.substring(0, 3) === "BTC") {
-      let orderObj = queryOrders(market);
-      let obj = {market: 
+      let orderObj = queryOrders(market).then(function(obj) {
+        return obj;
+      });
+      console.log("orderObj", orderObj);
+      let entryObj = {market: 
                            {"results": resultspage1[i],
                            "orderData": orderObj
                            }
                           };
-      dbInsert(collection,obj);
-      CC1.push(obj);
+      dbInsert(collection,entryObj);
+      CC1.push(entryObj);
     }
   }
 }
