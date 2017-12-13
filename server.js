@@ -216,7 +216,7 @@ function creator(collection) {
 }
 
 dbProm.then(function() {
-  //setInterval(recurring, 30000);
+  setInterval(recurring, 30000);
   setTimeout(recurring, 1000);
 });
 
