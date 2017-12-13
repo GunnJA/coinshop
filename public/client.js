@@ -64,15 +64,16 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
     console.log("arr1key", arr1[key]);
     let item1 = arr1[key];
     let item1Name = item1.MarketName;
+    console.log(item1Name);
     let item2 = obj2[item1Name];
     let item3 = obj3[item1Name];
     let item4 = obj4[item1Name];
     let item5 = obj5[item1Name];
     let factor4 = Math.round(((item4.Last - item5.Last)/item5.Last)*1000);
-    let factor3 = Math.round(((item3.Last - item4.Last)/item4.Last)*1000)
-    let factor2 = Math.round(((item2.Last - item3.Last)/item3.Last)*1000)
-    let factor1 = Math.round(((item1.Last - item2.Last)/item2.Last)*1000)
-    newHTML += `<tr><td class="tg-6k2t">${item1.MarketName}</td>`;
+    let factor3 = Math.round(((item3.Last - item4.Last)/item4.Last)*1000);
+    let factor2 = Math.round(((item2.Last - item3.Last)/item3.Last)*1000);
+    let factor1 = Math.round(((item1.Last - item2.Last)/item2.Last)*1000);
+    newHTML += `<tr><td class="tg-6k2t">${item1Name}</td>`;
     newHTML += `<td class="tg-6k2t">${item5.Last}</td>`;
     newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor4}, 255, ${125-factor4})">${factor4}</td>`;
     newHTML += `<td class="tg-6k2t">${item4.Last}</td>`;

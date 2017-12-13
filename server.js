@@ -178,7 +178,7 @@ function processDump(array,collection) {
         console.log(entryObj)
         dbInsert(collection,entryObj);
         //console.log(entryObj);
-        CC1.push(entryObj);
+        CC1.push(resultObj);
       });
     }
   }
