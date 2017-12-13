@@ -147,7 +147,7 @@ function evalOrders(market,arr) {
   let sells = 0;
   let endTime = new Date(arr[0].TimeStamp);
   let startTime= new Date(arr[arr.length - 1].TimeStamp);
-  let timeSpan = (endTime - startTime)/1000/60;
+  let timeSpan = Math.ceil((endTime - startTime)/1000/60);
   for (let i = 0; i < arr.length; i += 1) {
     let item = arr[i];
     if (item.FillType === "FILL") {
@@ -158,7 +158,7 @@ function evalOrders(market,arr) {
       }
     }
   }
-  return { "timeSpan": `${timeSpan} minutes`,
+  return { "timeSpan": `${timeSpan} m`,
            "b-s": buys - sells
          }
 }
@@ -216,7 +216,7 @@ function creator(collection) {
 }
 
 dbProm.then(function() {
-  setInterval(recurring, 100000);
+  setInterval(recurring, 20000);
   setTimeout(recurring, 1000);
 });
 
