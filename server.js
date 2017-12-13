@@ -134,9 +134,8 @@ function queryOrders(market) {
         let body = Buffer.concat(chunks);
         let newStr = body.toString();
         let newJson = JSON.parse(newStr);
-        
-        console.log(evalOrders(market,newJson.result));
-        resolve(body.toString());
+        let obj = evalOrders(market,newJson.result)
+        resolve(obj);
       });
     });
     req.end();
@@ -146,8 +145,8 @@ function queryOrders(market) {
 function evalOrders(market,arr) {
   let buys = 0;
   let sells = 0;
-  let startTime = new Date(arr[0].TimeStamp);
-  let endTime = new Date(arr[arr.length - 1].TimeStamp);
+  let endTime = new Date(arr[0].TimeStamp);
+  let startTime= new Date(arr[arr.length - 1].TimeStamp);
   let timeSpan = (endTime - startTime)/1000/60;
   for (let i = 0; i < arr.length; i += 1) {
     let item = arr[i];
@@ -160,7 +159,7 @@ function evalOrders(market,arr) {
     }
   }
   return { "market":market,
-           "timeSpan": timeSpan,
+           "timeSpan": `${timeSpan} minutes`,
            "buys": buys,
            "sells": sells
          }
@@ -212,7 +211,7 @@ function creator(collection) {
 dbProm.then(function() {
   setInterval(recurring, 100000);
   setTimeout(recurring, 1000);
-    setTimeout(queryOrders("BTC-RDD"), 1000);
+    setTimeout(queryOrders("BTC-VTC"), 1000);
 });
 
 function smarts() {
