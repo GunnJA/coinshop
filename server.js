@@ -115,7 +115,6 @@ function queryMarket() {
 // bittrex order api req
 function queryOrders(market) {
   return new Promise(function(resolve,reject) {
-    let result;
     let options = {
       "method": "GET",
       "hostname": "bittrex.com",
@@ -124,10 +123,10 @@ function queryOrders(market) {
     };
 
     let req = http.request(options, function (res) {
-      let sumArr = 
       let chunks = [];
 
       res.on("data", function (chunk) {
+       // if chunk.result
         chunks.push(chunk);
       });
 
@@ -139,6 +138,8 @@ function queryOrders(market) {
     req.end();
     })
 }
+
+
 
 function processDump(array,collection) {
   let dump = JSON.parse(array);
@@ -186,6 +187,7 @@ function creator(collection) {
 dbProm.then(function() {
   setInterval(recurring, 100000);
   setTimeout(recurring, 1000);
+    setTimeout(queryOrders("btc-ltc"), 1000);
 });
 
 function smarts() {
