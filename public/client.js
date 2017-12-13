@@ -25,8 +25,8 @@ function recurring() {
       getData("CC4").then(function(obj4) {
         CC4 = toObject(obj4);
         getData("CC5").then(function(obj5) {
-          CC5 = toObject(CC5);
-          console.log("CC5",obj5);
+          CC5 = toObject(obj5);
+          //console.log("CC5",obj5);
           displayData(CC1,CC2,CC3,CC4,CC5);
         });
       });
@@ -47,15 +47,16 @@ function toObject(arr) {
   var newObj = {};
   for (var i = 0; i < arr.length; ++i) {
     let name = arr[i].MarketName;
-    newObj[name] = arr[i].results;
+    newObj[name] = arr[i].Results;
   }
-  console.log("newObj",newObj);
+  //console.log("newObj",newObj);
   return newObj;
 }
 
 function displayData(arr1, obj2, obj3, obj4, obj5) {
   let newHTML = `<div id="containerDiv"><table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr>`;
   newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Last Price(5)</td><td class="tg-6k2t">Δ</td>`;
+  newHTML += `<td class="tg-6k2t">Last Price(4)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(4)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(3)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(2)</td><td class="tg-6k2t">Δ</td>`;
@@ -64,7 +65,7 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
     console.log("arr1key", arr1[key]);
     let item1 = arr1[key];
     let item1Name = item1.MarketName;
-    console.log(item1Name);
+    //console.log(item1Name);
     let item2 = obj2[item1Name];
     let item3 = obj3[item1Name];
     let item4 = obj4[item1Name];
@@ -73,9 +74,17 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
     let factor3 = Math.round(((item3.Last - item4.Last)/item4.Last)*1000);
     let factor2 = Math.round(((item2.Last - item3.Last)/item3.Last)*1000);
     let factor1 = Math.round(((item1.Last - item2.Last)/item2.Last)*1000);
+    let OI1 = item1.orderInfo;
+    let OI2 = item2.orderInfo;
+    let OI3 = item3.orderInfo;
+    let OI4 = item4.orderInfo;
+    let OI5 = item5.orderInfo;
     newHTML += `<tr><td class="tg-6k2t">${item1Name}</td>`;
     newHTML += `<td class="tg-6k2t">${item5.Last}</td>`;
+    newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor4}, 255, ${125-factor4})">${OI5.timsSpan}</td>`;
+    newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor4}, 255, ${125-factor4})">${OI5["b-s"]}</td>`;
     newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor4}, 255, ${125-factor4})">${factor4}</td>`;
+
     newHTML += `<td class="tg-6k2t">${item4.Last}</td>`;
     newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor3}, 255, ${125-factor3})">${factor3}</td>`;
     newHTML += `<td class="tg-6k2t">${item3.Last}</td>`;
