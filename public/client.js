@@ -53,6 +53,13 @@ function toObject(arr) {
   return newObj;
 }
 
+function genTVChart(marketName) {
+  let nameArr = marketName.split("-");
+  let nameStr = nameArr[1]+nameArr[0];
+  return `https://www.tradingview.com/symbols/${nameStr}/`;
+}
+
+
 function displayData(arr1, obj2, obj3, obj4, obj5) {
   let newHTML = `<div id="containerDiv"><table class="tg"><tr><th class="tg-baqh" colspan="22">Coin Markets</th></tr>`;
   newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Daily High</td><td class="tg-6k2t">Daily Low</td><td class="tg-6k2t">Fluc %</td>`;
@@ -91,7 +98,7 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
       let OI3 = item3.orderInfo;
       let OI4 = item4.orderInfo;
       let fluc = Math.round((item1.High/item1.Low)*10);
-      newHTML += `<tr><td class="tg-6k2t">${item1Name}</td>`;
+      newHTML += `<tr><td class="tg-6k2t" href="${genTVChart(item1Name)}">${item1Name}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(200, 255, 200)">${item1.High}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(255, 200, 200)">${item1.Low}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(${200-fluc}, ${200-fluc}, 200)">${fluc}%</td>`;
