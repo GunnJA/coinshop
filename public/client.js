@@ -54,8 +54,9 @@ function toObject(arr) {
 }
 
 function displayData(arr1, obj2, obj3, obj4, obj5) {
-  let newHTML = `<div id="containerDiv"><table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr>`;
-  newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Daily High</td><td class="tg-6k2t">Daily Low</td><td class="tg-6k2t">Last Price(5)</td>`;
+  let newHTML = `<div id="containerDiv"><table class="tg"><tr><th class="tg-baqh" colspan="22">Coin Markets</th></tr>`;
+  newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Daily High</td><td class="tg-6k2t">Daily Low</td><td class="tg-6k2t">Fluc %</td>`;
+  newHTML += `<td class="tg-6k2t">Last Price(5)</td>`;
   newHTML += `<td class="tg-6k2t">TimeSpan(5)</td>`;
   newHTML += `<td class="tg-6k2t">B-S(5)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(4)</td>`;
@@ -89,7 +90,11 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
       let OI3 = item3.orderInfo;
       let OI4 = item4.orderInfo;
       let OI5 = item5.orderInfo;
+      let fluc = (item1.high/item1.Low)*100;
       newHTML += `<tr><td class="tg-6k2t">${item1Name}</td>`;
+      newHTML += `<td class="tg-6k2t" style="background-color:rgb(200, 255, 200)">${item1.High}</td>`;
+      newHTML += `<td class="tg-6k2t" style="background-color:rgb(255, 200, 200)">${item1.Low}</td>`;
+      newHTML += `<td class="tg-6k2t" style="background-color:rgb(${200-fluc}, ${200-fluc}, 200)">${fluc}%</td>`;
       newHTML += `<td class="tg-6k2t">${item5.Last}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, 175, 205)">${OI5["timeSpan"]}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, ${125+OI5["b-s"]*2}, ${125+OI5["b-s"]*2})">${OI5["b-s"]}</td>`;
