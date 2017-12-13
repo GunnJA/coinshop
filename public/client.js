@@ -60,8 +60,13 @@ function genTVChart(marketName) {
 }
 
 
+function bittrexURL(marketName) {
+  return `https://bittrex.com/Market/Index?MarketName=${marketName}`;
+}
+
+
 function displayData(arr1, obj2, obj3, obj4, obj5) {
-  let newHTML = `<div id="containerDiv"><table class="tg"><tr><th class="tg-baqh" colspan="22">Coin Markets</th></tr>`;
+  let newHTML = `<div id="containerDiv"><table class="tg"><tr><th class="tg-baqh" colspan="23">Coin Markets</th></tr>`;
   newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Daily High</td><td class="tg-6k2t">Daily Low</td><td class="tg-6k2t">Fluc %</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(5)</td>`;
   newHTML += `<td class="tg-6k2t">TimeSpan(5)</td>`;
@@ -85,7 +90,7 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
     let OI1 = item1.orderInfo;
     let item5 = obj5[item1Name];
     let OI5 = item5.orderInfo;
-    if (OI1["timeSpan"] < 10 || OI5["timeSpan"] < 10) {
+    if (OI1["timeSpan"] <= 7 || OI5["timeSpan"] <= 7) {
       //console.log(item1Name);
       let item2 = obj2[item1Name];
       let item3 = obj3[item1Name];
@@ -98,7 +103,7 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
       let OI3 = item3.orderInfo;
       let OI4 = item4.orderInfo;
       let fluc = Math.round((item1.High/item1.Low)*10);
-      newHTML += `<tr><td class="tg-6k2t"><a class="editbtn" href="${genTVChart(item1Name)}">${item1Name}</a></td>`;
+      newHTML += `<tr><td class="tg-6k2t"><a href="${genTVChart(item1Name)}">${item1Name}</a></td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(200, 255, 200)">${item1.High}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(255, 200, 200)">${item1.Low}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(${200-fluc}, ${200-fluc}, 200)">${fluc}%</td>`;
@@ -120,7 +125,8 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor1}, 255, ${125-factor1})">${factor1}</td>`;
       newHTML += `<td class="tg-6k2t">${item1.Last}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, 175, 205)">${OI1["timeSpan"]}</td>`;
-      newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, ${125+OI1["b-s"]*2}, ${125+OI1["b-s"]*2})">${OI1["b-s"]}<button</td>`;
+      newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, ${125+OI1["b-s"]*2}, ${125+OI1["b-s"]*2})">${OI1["b-s"]}</td>`;
+      newHTML += `<td><a href="${bittrexURL(item1Name)}">View</a></td>`;
           }
      });
     newHTML += `</table></div>`;
