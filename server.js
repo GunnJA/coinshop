@@ -158,8 +158,7 @@ function evalOrders(market,arr) {
       }
     }
   }
-  return { "market":market,
-           "timeSpan": `${timeSpan} minutes`,
+  return { "timeSpan": `${timeSpan} minutes`,
            "b-s": buys - sells
          }
 }
@@ -175,8 +174,7 @@ function processDump(array,collection) {
         let resultObj = resultspage1[i];
         resultObj["orderInfo"] = obj;
         let entryObj = {};
-        entryObj[market] = {"results": resultObj
-                           };
+        entryObj[market] = resultObj;
         console.log(entryObj)
         dbInsert(collection,entryObj);
         //console.log(entryObj);
