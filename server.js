@@ -171,13 +171,14 @@ function processDump(array,collection) {
   for (let i=1; i < resultspage1.length; i+= 1) {
     let market = resultspage1[i].MarketName;
     if (market.substring(0, 3) === "BTC") {
-      let obj = queryOrders(market);
-      dbInsert(collection,{market: 
+      let orderObj = queryOrders(market);
+      let obj = {market: 
                            {"results": resultspage1[i],
-                           "orderData": obj
+                           "orderData": orderObj
                            }
-                          });
-      CC1.push(resultspage1[i]);
+                          };
+      dbInsert(collection,obj);
+      CC1.push(obj);
     }
   }
 }
@@ -215,7 +216,6 @@ function creator(collection) {
 dbProm.then(function() {
   setInterval(recurring, 100000);
   setTimeout(recurring, 1000);
-    setTimeout(, 1000);
 });
 
 function smarts() {
