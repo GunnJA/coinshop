@@ -134,7 +134,8 @@ function queryOrders(market) {
         let body = Buffer.concat(chunks);
         let newStr = body.toString();
         let newJson = JSON.parse(newStr);
-        console.log(newJson.result);
+        
+        console.log(evalOrders(market,newJson.result));
         resolve(body.toString());
       });
     });
@@ -142,10 +143,12 @@ function queryOrders(market) {
     })
 }
 
-function evalOrders(arr) {
+function evalOrders(market,arr) {
   let buys = 0;
   let sells = 0;
-  let diff = 0;
+  let startTime = new Date(arr[0].TimeStamp);
+  let endTime = new Date(arr[arr.length - 1].TimeStamp);
+  let timeSpan = (endTime - startTime)/1000/60;
   for (let i = 0; i < arr.length; i += 1) {
     let item = arr[i];
     if (item.FillType === "FILL") {
@@ -156,7 +159,11 @@ function evalOrders(arr) {
       }
     }
   }
-  return 
+  return { "market":market,
+           "timeSpan": timeSpan,
+           "buys": buys,
+           "sells": sells
+         }
 }
 
 function processDump(array,collection) {
