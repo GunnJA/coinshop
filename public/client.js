@@ -49,6 +49,7 @@ function toObject(arr) {
     let name = arr[i].MarketName;
     newObj[name] = arr[i];
   }
+  console.log("newObj",newObj);
   return newObj;
 }
 
