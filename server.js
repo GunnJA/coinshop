@@ -240,7 +240,7 @@ function recurring() {
 }
 
 app.get("/get/latest", function (req, res) {
-  res.send(CC1);
+  res.send(CC1.sort());
 });
 
 app.get("/get/CC2", function (req, res) {

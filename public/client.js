@@ -55,7 +55,7 @@ function toObject(arr) {
 
 function displayData(arr1, obj2, obj3, obj4, obj5) {
   let newHTML = `<div id="containerDiv"><table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr>`;
-  newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Last Price(5)</td>`;
+  newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Daily High</td><td class="tg-6k2t">Daily Low</td><td class="tg-6k2t">Last Price(5)</td>`;
   newHTML += `<td class="tg-6k2t">TimeSpan(5)</td>`;
   newHTML += `<td class="tg-6k2t">B-S(5)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(4)</td>`;
@@ -68,7 +68,7 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
   newHTML += `<td class="tg-6k2t">TimeSpan(2)</td>`;
   newHTML += `<td class="tg-6k2t">B-S(2)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Latest Price</td>`;
-  newHTML += `<td class="tg-6k2t">Latest TimeSpan</td>`;
+  newHTML += `<td class="tg-6k2t">TimeSpan</td>`;
   newHTML += `<td class="tg-6k2t">Latest B-S</td></tr>`;
   $.each(arr1, function(key, value) {
     //console.log("arr1key", arr1[key]);
