@@ -15,7 +15,13 @@ setInterval(recurring, 30000);
 
 function recurring() {
   $.get(`/get/latest`, function(arr) {
-    CC1 = arr;
+    CC1 = arr.sort(function(a,b) {
+      if a.MarketName > b.MarketName {
+        return a
+      } else {
+        return b
+      }
+    });
   });
   getData("CC2").then(function(obj2) {
     CC2 = toObject(obj2);

@@ -216,7 +216,7 @@ function creator(collection) {
 }
 
 dbProm.then(function() {
-  setInterval(recurring, 30000);
+  //setInterval(recurring, 30000);
   setTimeout(recurring, 1000);
 });
 
@@ -240,7 +240,7 @@ function recurring() {
 }
 
 app.get("/get/latest", function (req, res) {
-  res.send(CC1.sort());
+  res.send(CC1);
 });
 
 app.get("/get/CC2", function (req, res) {
