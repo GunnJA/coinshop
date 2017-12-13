@@ -74,14 +74,15 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
   $.each(arr1, function(key, value) {
     //console.log("arr1key", arr1[key]);
     let item1 = arr1[key];
+    let item1Name = item1.MarketName;
     let OI1 = item1.orderInfo;
-    if (OI1["timeSpan"] < 8) {
-      let item1Name = item1.MarketName;
+    let item5 = obj5[item1Name];
+    let OI5 = item5.orderInfo;
+    if (OI1["timeSpan"] < 10 || OI5["timeSpan"] < 10) {
       //console.log(item1Name);
       let item2 = obj2[item1Name];
       let item3 = obj3[item1Name];
       let item4 = obj4[item1Name];
-      let item5 = obj5[item1Name];
       let factor4 = Math.round(((item4.Last - item5.Last)/item5.Last)*1000);
       let factor3 = Math.round(((item3.Last - item4.Last)/item4.Last)*1000);
       let factor2 = Math.round(((item2.Last - item3.Last)/item3.Last)*1000);
@@ -89,8 +90,7 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
       let OI2 = item2.orderInfo;
       let OI3 = item3.orderInfo;
       let OI4 = item4.orderInfo;
-      let OI5 = item5.orderInfo;
-      let fluc = (item1.high/item1.Low)*100;
+      let fluc = Math.round((item1.High/item1.Low)*10);
       newHTML += `<tr><td class="tg-6k2t">${item1Name}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(200, 255, 200)">${item1.High}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(255, 200, 200)">${item1.Low}</td>`;
