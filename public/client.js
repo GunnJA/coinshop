@@ -18,7 +18,7 @@ function recurring() {
     CC1 = arr;
   });
   getData("CC2").then(function(obj2) {
-    CC2 = obj2;
+    CC2 = toObject(obj2);
     //console.log(CC2);
     getData("CC3").then(function(obj3) {
       CC3 = obj3;
@@ -43,15 +43,15 @@ function getData(CC) {
   });
 }
 
-//function toObject(arr) {
-//  var newObj = {};
-//  for (var i = 0; i < arr.length; ++i) {
-//    let name = arr[i].MarketName;
-//    newObj[name] = arr[i];
-//  }
-//  console.log("newObj",newObj);
-//  return newObj;
-//}
+function toObject(arr) {
+  var newObj = {};
+  for (var i = 0; i < arr.length; ++i) {
+    let name = arr[i].MarketName;
+    newObj[name] = arr[i];
+  }
+  console.log("newObj",newObj);
+  return newObj;
+}
 
 function displayData(arr1, obj2, obj3, obj4, obj5) {
   let newHTML = `<div id="containerDiv"><table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr>`;
