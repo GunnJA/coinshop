@@ -118,7 +118,7 @@ function queryOrders(market) {
     let options = {
       "method": "GET",
       "hostname": "bittrex.com",
-      "path": "/api/v1.1/public/getmarkethistory?market=${market}`",
+      "path": `/api/v1.1/public/getmarkethistory?market=${market}`,
       "port": null
     };
 
@@ -132,7 +132,9 @@ function queryOrders(market) {
 
       res.on("end", function () {
         let body = Buffer.concat(chunks);
-        console.log(body.toString());
+        let newStr = body.toString();
+        let newJson = JSON.stringify(newStr);
+        console.log(newStr.result);
         resolve(body.toString());
       });
     });
@@ -188,7 +190,7 @@ function creator(collection) {
 dbProm.then(function() {
   setInterval(recurring, 100000);
   setTimeout(recurring, 1000);
-    setTimeout(queryOrders("BTC-LTC"), 1000);
+    setTimeout(queryOrders("BTC-RDD"), 1000);
 });
 
 function smarts() {
