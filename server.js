@@ -158,7 +158,7 @@ function evalOrders(market,arr) {
       }
     }
   }
-  return { "timeSpan": `${timeSpan} m`,
+  return { "timeSpan": timeSpan,
            "b-s": buys - sells
          }
 }
