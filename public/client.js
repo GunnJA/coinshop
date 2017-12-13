@@ -16,10 +16,10 @@ setInterval(recurring, 30000);
 function recurring() {
   $.get(`/get/latest`, function(arr) {
     CC1 = arr.sort(function(a,b) {
-      if a.MarketName > b.MarketName {
-        return a
+      if (a.MarketName > b.MarketName) {
+        return 1
       } else {
-        return b
+        return -1
       }
     });
   });
