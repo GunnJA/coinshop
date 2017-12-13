@@ -15,17 +15,17 @@ setInterval(recurring, 100000);
 
 function recurring() {
   $.get(`/get/latest`, function(arr) {
-    CC1 = arr;
+    CC1 = toObject(arr);
   });
   getData("CC2").then(function(obj2) {
-    CC2 = obj2;
+    CC2 = toObject(obj2);
     console.log(CC2);
     getData("CC3").then(function(obj3) {
-      CC3 = obj3
+      CC3 = toObject(obj3);
       getData("CC4").then(function(obj4) {
-        CC4 = obj4
+        CC4 = toObject(obj4);
         getData("CC5").then(function(obj5) {
-          CC5 = obj5
+          CC5 = toObject(obj5);
           console.log("CC5",CC5);
           displayData(CC1,CC2,CC3,CC4,CC5);
         });
@@ -43,15 +43,15 @@ function getData(CC) {
   });
 }
 
-//function toObject(arr) {
-//  var newObj = {};
-//  for (var i = 0; i < arr.length; ++i) {
-//    let name = arr[i]MarketName;
-//    newObj[name] = arr[i];
-//  }
-//  console.log("newObj",newObj);
-//  return newObj;
-//}
+function toObject(arr) {
+  var newObj = {};
+  for (var i = 0; i < arr.length; ++i) {
+    let name = arr[i].MarketName;
+    newObj[name] = arr[i];
+  }
+  console.log("newObj",newObj);
+  return newObj;
+}
 
 function displayData(arr1, obj2, obj3, obj4, obj5) {
   let newHTML = `<div id="containerDiv"><table class="tg"><tr><th class="tg-baqh" colspan="6">Coin Markets</th></tr>`;

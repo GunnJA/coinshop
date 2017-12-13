@@ -172,12 +172,11 @@ function processDump(array,collection) {
     let market = resultspage1[i].MarketName;
     if (market.substring(0, 3) === "BTC") {
       queryOrders(market).then(function(obj) {
-        //console.log("orderObj", obj);
-        console.log("Market",market);
+        let resultObj = resultspage1[i];
+        resultObj["orderInfo"] = obj;
         let entryObj = {};
-        entryObj[market] = {"results": resultspage1[i],
-                             "orderData": obj
-                             };
+        entryObj[market] = {"results": resultObj
+                           };
         console.log(entryObj)
         dbInsert(collection,entryObj);
         //console.log(entryObj);
@@ -218,7 +217,7 @@ function creator(collection) {
 }
 
 dbProm.then(function() {
-  //setInterval(recurring, 100000);
+  setInterval(recurring, 100000);
   setTimeout(recurring, 1000);
 });
 
