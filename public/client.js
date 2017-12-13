@@ -21,12 +21,12 @@ function recurring() {
     CC2 = toObject(obj2);
     //console.log(CC2);
     getData("CC3").then(function(obj3) {
-      CC3 = obj3;
+      CC3 = toObject(obj3);
       getData("CC4").then(function(obj4) {
-        CC4 = obj4;
+        CC4 = toObject(obj4);
         getData("CC5").then(function(obj5) {
-          CC5 = obj5;
-          console.log("CC5",CC5);
+          CC5 = toObject(CC5);
+          console.log("CC5",obj5);
           displayData(CC1,CC2,CC3,CC4,CC5);
         });
       });
@@ -47,7 +47,7 @@ function toObject(arr) {
   var newObj = {};
   for (var i = 0; i < arr.length; ++i) {
     let name = arr[i].MarketName;
-    newObj[name] = arr[i];
+    newObj[name] = arr[i].results;
   }
   console.log("newObj",newObj);
   return newObj;

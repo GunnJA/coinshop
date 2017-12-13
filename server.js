@@ -174,7 +174,8 @@ function processDump(array,collection) {
         let resultObj = resultspage1[i];
         resultObj["orderInfo"] = obj;
         let entryObj = {};
-        entryObj[market] = resultObj;
+        entryObj["MarketName"] = market;
+        entryObj["Results"] = resultObj;
         console.log(entryObj)
         dbInsert(collection,entryObj);
         //console.log(entryObj);
