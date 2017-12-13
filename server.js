@@ -171,8 +171,12 @@ function processDump(array,collection) {
   for (let i=1; i < resultspage1.length; i+= 1) {
     let market = resultspage1[i].MarketName;
     if (market.substring(0, 3) === "BTC") {
-      queryOrders(market)
-      dbInsert(collection,resultspage1[i]);
+      let obj = queryOrders(market);
+      dbInsert(collection,{market: 
+                           {"results": resultspage1[i],
+                           "orderData": obj
+                           }
+                          });
       CC1.push(resultspage1[i]);
     }
   }
