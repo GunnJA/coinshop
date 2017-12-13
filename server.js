@@ -132,7 +132,7 @@ function queryOrders(market) {
 
       res.on("end", function () {
         let body = Buffer.concat(chunks);
-        console.log(body);
+        console.log(body.toString());
         resolve(body.toString());
       });
     });
@@ -188,7 +188,7 @@ function creator(collection) {
 dbProm.then(function() {
   setInterval(recurring, 100000);
   setTimeout(recurring, 1000);
-    setTimeout(queryOrders("btc-ltc"), 1000);
+    setTimeout(queryOrders("BTC-LTC"), 1000);
 });
 
 function smarts() {
