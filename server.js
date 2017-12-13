@@ -133,8 +133,8 @@ function queryOrders(market) {
       res.on("end", function () {
         let body = Buffer.concat(chunks);
         let newStr = body.toString();
-        let newJson = JSON.stringify(newStr);
-        console.log(newStr.result);
+        let newJson = JSON.parse(newStr);
+        console.log(newJson.result);
         resolve(body.toString());
       });
     });
@@ -142,7 +142,22 @@ function queryOrders(market) {
     })
 }
 
-
+function evalOrders(arr) {
+  let buys = 0;
+  let sells = 0;
+  let diff = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    let item = arr[i];
+    if (item.FillType === "FILL") {
+      if (item.OrderType === "BUY") {
+        buys += 1;
+      } else {
+        sells += 1;
+      }
+    }
+  }
+  return 
+}
 
 function processDump(array,collection) {
   let dump = JSON.parse(array);
