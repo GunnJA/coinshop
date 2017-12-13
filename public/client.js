@@ -10,7 +10,7 @@ $( window ).load(function() {
   recurring();
 });
 
-setInterval(recurring, 20000);
+setInterval(recurring, 30000);
 
 
 function recurring() {
@@ -71,7 +71,7 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
   newHTML += `<td class="tg-6k2t">Latest TimeSpan</td>`;
   newHTML += `<td class="tg-6k2t">Latest B-S</td></tr>`;
   $.each(arr1, function(key, value) {
-    console.log("arr1key", arr1[key]);
+    //console.log("arr1key", arr1[key]);
     let item1 = arr1[key];
     let OI1 = item1.orderInfo;
     if (OI1["timeSpan"] < 8) {
@@ -109,10 +109,9 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
       newHTML += `<td class="tg-6k2t">${item1.Last}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, 175, 205)">${OI1["timeSpan"]}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, ${125+OI1["b-s"]*2}, ${125+OI1["b-s"]*2})">${OI1["b-s"]}</td>`;
-
+          }
+     });
     newHTML += `</table></div>`;
     $("#containerDiv").remove();
     $("#tableDiv").append(newHTML);
-    }
- });
 }

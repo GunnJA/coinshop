@@ -176,7 +176,7 @@ function processDump(array,collection) {
         let entryObj = {};
         entryObj["MarketName"] = market;
         entryObj["Results"] = resultObj;
-        console.log(entryObj)
+        //console.log(entryObj)
         dbInsert(collection,entryObj);
         //console.log(entryObj);
         CC1.push(resultObj);
@@ -216,7 +216,7 @@ function creator(collection) {
 }
 
 dbProm.then(function() {
-  setInterval(recurring, 20000);
+  setInterval(recurring, 30000);
   setTimeout(recurring, 1000);
 });
 
