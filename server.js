@@ -132,6 +132,7 @@ function queryOrders(market) {
 
       res.on("end", function () {
         let body = Buffer.concat(chunks);
+        console.log(body);
         resolve(body.toString());
       });
     });
