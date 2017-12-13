@@ -98,7 +98,7 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
       let OI3 = item3.orderInfo;
       let OI4 = item4.orderInfo;
       let fluc = Math.round((item1.High/item1.Low)*10);
-      newHTML += `<tr><td class="tg-6k2t" href="${genTVChart(item1Name)}">${item1Name}</td>`;
+      newHTML += `<tr><td class="tg-6k2t"><a class="editbtn" href="${genTVChart(item1Name)}">${item1Name}</a></td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(200, 255, 200)">${item1.High}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(255, 200, 200)">${item1.Low}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(${200-fluc}, ${200-fluc}, 200)">${fluc}%</td>`;
@@ -120,7 +120,7 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor1}, 255, ${125-factor1})">${factor1}</td>`;
       newHTML += `<td class="tg-6k2t">${item1.Last}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, 175, 205)">${OI1["timeSpan"]}</td>`;
-      newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, ${125+OI1["b-s"]*2}, ${125+OI1["b-s"]*2})">${OI1["b-s"]}</td>`;
+      newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, ${125+OI1["b-s"]*2}, ${125+OI1["b-s"]*2})">${OI1["b-s"]}<button</td>`;
           }
      });
     newHTML += `</table></div>`;
