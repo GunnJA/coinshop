@@ -160,8 +160,7 @@ function evalOrders(market,arr) {
   }
   return { "market":market,
            "timeSpan": `${timeSpan} minutes`,
-           "buys": buys,
-           "sells": sells
+           "b/s": buys/sells
          }
 }
 
@@ -172,6 +171,7 @@ function processDump(array,collection) {
   for (let i=1; i < resultspage1.length; i+= 1) {
     let market = resultspage1[i].MarketName;
     if (market.substring(0, 3) === "BTC") {
+      queryOrders(market)
       dbInsert(collection,resultspage1[i]);
       CC1.push(resultspage1[i]);
     }
@@ -211,7 +211,7 @@ function creator(collection) {
 dbProm.then(function() {
   setInterval(recurring, 100000);
   setTimeout(recurring, 1000);
-    setTimeout(queryOrders("BTC-VTC"), 1000);
+    setTimeout(, 1000);
 });
 
 function smarts() {
