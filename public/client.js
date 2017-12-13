@@ -10,7 +10,7 @@ $( window ).load(function() {
   recurring();
 });
 
-setInterval(recurring, 100000);
+setInterval(recurring, 20000);
 
 
 function recurring() {
@@ -94,7 +94,7 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
     newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor4}, 255, ${125-factor4})">${OI5["b-s"]}</td>`;
     newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor4}, 255, ${125-factor4})">${factor4}</td>`;
     newHTML += `<td class="tg-6k2t">${item4.Last}</td>`;
-    newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor4}, 255, ${125-factor4})">${OI4["timeSpan"]}</td>`;
+    newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+OI4["timeSpan"]}, 255, ${125-factor4})">${OI4["timeSpan"]}</td>`;
     newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor4}, 255, ${125-factor4})">${OI4["b-s"]}</td>`;
     newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor3}, 255, ${125-factor3})">${factor3}</td>`;
     newHTML += `<td class="tg-6k2t">${item3.Last}</td>`;
