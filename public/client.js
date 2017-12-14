@@ -101,10 +101,10 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
       let item2 = obj2[item1Name];
       let item3 = obj3[item1Name];
       let item4 = obj4[item1Name];
-      let factor4 = Math.round(((item4.Last - item5.Last)/item5.Last)*1000);
-      let factor3 = Math.round(((item3.Last - item4.Last)/item4.Last)*1000);
-      let factor2 = Math.round(((item2.Last - item3.Last)/item3.Last)*1000);
-      let factor1 = Math.round(((item1.Last - item2.Last)/item2.Last)*1000);
+      let factor4 = Math.round(((item4.Last - item5.Last)/item5.Last)*2000);
+      let factor3 = Math.round(((item3.Last - item4.Last)/item4.Last)*2000);
+      let factor2 = Math.round(((item2.Last - item3.Last)/item3.Last)*2000);
+      let factor1 = Math.round(((item1.Last - item2.Last)/item2.Last)*2000);
       let OI2 = item2.orderInfo;
       let OI3 = item3.orderInfo;
       let OI4 = item4.orderInfo;
