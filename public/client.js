@@ -73,7 +73,7 @@ function bittrexURL(marketName) {
 
 function displayData(arr1, obj2, obj3, obj4, obj5) {
   let newHTML = `<div id="containerDiv"><table class="tg"><tr><th class="tg-baqh" colspan="23">Coin Markets</th></tr>`;
-  newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Daily High</td><td class="tg-6k2t">Daily Low</td><td class="tg-6k2t">Fluc %</td>`;
+  newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Fluc %</td><td class="tg-6k2t">Daily High</td><td class="tg-6k2t">Daily Low</td><td class="tg-6k2t">% > Low</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(5)</td>`;
   newHTML += `<td class="tg-6k2t">TimeSpan(5)</td>`;
   newHTML += `<td class="tg-6k2t">B-S(5)</td><td class="tg-6k2t">Δ</td>`;
@@ -110,9 +110,10 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
       let OI4 = item4.orderInfo;
       let fluc = Math.round((item1.High/item1.Low)*10);
       newHTML += `<tr><td class="tg-6k2t"><a href="${genTVChart(item1Name)}">${item1Name}</a></td>`;
+      newHTML += `<td class="tg-6k2t" style="background-color:rgb(${200-fluc}, ${200-fluc}, 200)">${fluc}%</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(200, 255, 200)">${item1.High}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(255, 200, 200)">${item1.Low}</td>`;
-      newHTML += `<td class="tg-6k2t" style="background-color:rgb(${200-fluc}, ${200-fluc}, 200)">${fluc}%</td>`;
+      newHTML += `<td class="tg-6k2t" style="background-color:rgb(${200-fluc}, ${200-fluc}, 200)">${Math.round(((item5.Last - item1.Low)/item1.Low)*100)}%</td>`;
       newHTML += `<td class="tg-6k2t">${item5.Last}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, 175, 205)">${OI5["timeSpan"]}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, ${125+OI5["b-s"]*2}, ${125+OI5["b-s"]*2})">${OI5["b-s"]}</td>`;
