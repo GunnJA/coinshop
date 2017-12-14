@@ -162,6 +162,11 @@ function evalOrders(market,arr) {
     return { "timeSpan": timeSpan,
              "b-s": buys - sells
            }
+  } else  {
+    return { "timeSpan": "error",
+             "b-s": "error"
+           }
+  }  
 }
 
 function processDump(array,collection) {
