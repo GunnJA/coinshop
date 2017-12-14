@@ -143,24 +143,25 @@ function queryOrders(market) {
 }
 
 function evalOrders(market,arr) {
-  let buys = 0;
-  let sells = 0;
-  let endTime = new Date(arr[0].TimeStamp);
-  let startTime= new Date(arr[arr.length - 1].TimeStamp);
-  let timeSpan = Math.ceil((endTime - startTime)/1000/60);
-  for (let i = 0; i < arr.length; i += 1) {
-    let item = arr[i];
-    if (item.FillType === "FILL") {
-      if (item.OrderType === "BUY") {
-        buys += 1;
-      } else {
-        sells += 1;
+  if (arr[0]) {
+    let buys = 0;
+    let sells = 0;
+    let endTime = new Date(arr[0].TimeStamp);
+    let startTime= new Date(arr[arr.length - 1].TimeStamp);
+    let timeSpan = Math.ceil((endTime - startTime)/1000/60);
+    for (let i = 0; i < arr.length; i += 1) {
+      let item = arr[i];
+      if (item.FillType === "FILL") {
+        if (item.OrderType === "BUY") {
+          buys += 1;
+        } else {
+          sells += 1;
+        }
       }
     }
-  }
-  return { "timeSpan": timeSpan,
-           "b-s": buys - sells
-         }
+    return { "timeSpan": timeSpan,
+             "b-s": buys - sells
+           }
 }
 
 function processDump(array,collection) {
