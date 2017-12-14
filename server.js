@@ -194,12 +194,11 @@ function processDump(array,collection) {
 function rename(collection) {
   return new Promise(function(resolve,reject) {
     if (database.collection(collection)) {
-    let num = parseInt(collection.substr(12, 1));
-    console.log(collection,`collectCoins${num + 1}`);
-    let coll = database.collection(collection);
-    resolve(coll.rename(`collectCoins${num + 1}`));
-    }
-    else resolve(console.log(`${collection} doesnt exist`));
+      let num = parseInt(collection.substr(12, 1));
+      console.log(collection,`collectCoins${num + 1}`);
+      let coll = database.collection(collection);
+      resolve(coll.rename(`collectCoins${num + 1}`));
+    }  else resolve(console.log(`${collection} doesnt exist`));
   });
 }
 
