@@ -224,8 +224,8 @@ function creator(collection) {
 }
 
 dbProm.then(function() {
-  //setInterval(recurring, 60000);
-  //setTimeout(recurring, 1000);
+  setInterval(recurring, 60000);
+  setTimeout(recurring, 1000);
 });
 
 function recurring() {
