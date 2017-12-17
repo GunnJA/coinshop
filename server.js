@@ -11,6 +11,7 @@ let database;
 //let collectCoins2;
 let dump;
 let CC1 = [];
+//https://www.reddit.com/search.json?q=xvg&t=hour
 
 //DB functions
 let dbProm = new Promise(function(resolve, reject) {
