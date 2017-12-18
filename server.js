@@ -169,7 +169,8 @@ function evalOrders(market,arr) {
 }
 
 function processDump(array,item,collection) {
-  let CC1 = [];
+  return new Promise(function(resolve,reject) {
+    let CC1 = [];
   let dump = JSON.parse(array);
   let resultspage1 = dump.result;
   //console.log("resultspage1",resultspage1[1]);
@@ -186,14 +187,15 @@ function processDump(array,item,collection) {
         CC1.push(resultObj);
       });
     }
+    if (i === (resultspage1.length -1)) {
+        console.log("cc1",CC1,resultspage1.length -1)
+      resolve(CC1);
+    }
   }
-  console.log("cc1",CC1)
-  return CC1;
+    })
+
 }
 
-function forLoop() {
-    
-}
 
 dbProm.then(function(collection) {
   //setInterval(recurring, 60000);
