@@ -169,24 +169,32 @@ function evalOrders(market,arr) {
   }  
 }
 
+function forLoop(arr) {
+  return new Promise(function(resolve,reject) {
+    let CC1 = [];
+    for (let i = 0; i < arr.length; i += 1) {
+        let page = arr[i];
+        let market = page.MarketName;
+        if (market.substring(0, 3) === "BTC") {
+          queryOrders(market).then(function(obj) {
+            let resultObj = page;
+            resultObj["orderInfo"] = obj;
+            CC1.push(resultObj);
+            console.log("CC1Len",CC1.length)
+          })
+        }
+      if (i === (arr.length - 1)) {
+        resolve(CC1);
+      }
+    }
+  });
+}
 
 function processLeDump(array,item,collection) {
   return new Promise(function(resolve,reject) {
-    let CC1 = [];
     let dump = JSON.parse(array);
-    let resultspage = dump.result;
-    for (let i = 0; i < resultspage.length; i += 1) {
-      let page = resultspage[i];
-      let market = page.MarketName;
-      if (market.substring(0, 3) === "BTC") {
-        queryOrders(market).then(function(obj) {
-          let resultObj = page;
-          resultObj["orderInfo"] = obj;
-          CC1.push(resultObj);
-          console.log("CC1Len",CC1.length)
-        })
-      }
-    }
+    let resultPage = dump.result;
+    let CC1 = forLoop(resultPage);
   });
 }
 
