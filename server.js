@@ -174,13 +174,13 @@ function evalOrders(market,arr) {
 function processDump(array,item,collection) {
   let dump = JSON.parse(array);
   let resultspage1 = dump.result;
-  let subObj = {};
   console.log("resultspage1",resultspage1[1]);
   for (let i=1; i < resultspage1.length; i+= 1) {
     let market = resultspage1[i].MarketName;
     if (market.substring(0, 3) === "BTC") {
       queryOrders(market).then(function(obj) {
         let resultObj = resultspage1[i];
+        let subObj = {};
         resultObj["orderInfo"] = obj;
         subObj["MarketName"] = market;
         subObj["Results"] = resultObj;
@@ -189,7 +189,7 @@ function processDump(array,item,collection) {
     }
   }
   let entryObj = {};
-  entryObj[item] = subObj;
+  entryObj[item] = CC1;
   dbInsert(collection,entryObj);
 }
 
