@@ -185,9 +185,9 @@ function forLoop(arr) {
         queryOrders(market).then(function(obj) {
           let resultObj = page;
           resultObj["orderInfo"] = obj;
-          CC1.push(resultObj);
-          //console.log(CC1.length)
-          //console.log("i",i)
+          let upperObj = {};
+          upperObj[market] = resultObj
+          CC1.push(upperObj);
           if (CC1.length === 199) {
             console.log("len",arr.length);
             console.log("cl",CC1.length);
