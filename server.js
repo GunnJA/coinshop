@@ -4,6 +4,7 @@ const mongo = require('mongodb').MongoClient
 const http = require("https");
 const secret = process.env.CS_SECRET;
 const key = process.env.CS_KEY;
+const async = require('async');
 let loggedIn = false;
 let offsetDefault = 10;
 let database;
@@ -179,29 +180,53 @@ function abc(resultPage,i,obj) {
 function processDump(array,item,collection) {
   return new Promise(function(resolve,reject) {
     let CC1 = [];
-  let dump = JSON.parse(array);
-  let resultspage1 = dump.result;
-  //console.log("resultspage1",resultspage1[1]);
-  for (let i=1; i < resultspage1.length; i+= 1) {
-    let market = resultspage1[i].MarketName;
-    if (market.substring(0, 3) === "BTC") {
-      queryOrders(market).then(function(obj) {
-        abc(resultspage1,i,obj).then(function(obj) {
-          
-        })
+    let dump = JSON.parse(array);
+    let resultspage1 = dump.result;
+    //console.log("resultspage1",resultspage1[1]);
+    for (let i=1; i < resultspage1.length; i+= 1) {
+      let market = resultspage1[i].MarketName;
+      if (market.substring(0, 3) === "BTC") {
+        queryOrders(market).then(function(obj) {
+          abc(resultspage1,i,obj).then(function(obj) {
+            CC1.push(obj);
+            if (i === (resultspage1.length -1)) {
+            console.log("i",i);
+            console.log("cc1",CC1,resultspage1.length -1)
+            resolve(CC1);
+            }
+          })
 
-      });
+        });
+      }
     }
-    if (i === (resultspage1.length -1)) {
-      console.log("i",i);
-        console.log("cc1",CC1,resultspage1.length -1)
-      resolve(CC1);
-    }
-  }
-    })
+  })
 
 }
 
+function processLeDump(array,item,collection) {
+  var i = 0;
+ 
+  async.each(listItems, function(listItem, next) {
+ 
+    listItem.position = i;
+ 
+    listItem.save(function(err, results) {
+ 
+        // i is increased because we need it on line 5
+        i++;
+ 
+        // the next() function is called when you
+        // want to move to the next item in the array
+        next();
+    });
+ 
+  }, function(err) {
+ 
+    // all data has been updated
+    // do whatever you want
+ 
+  });
+}
 
 dbProm.then(function(collection) {
   //setInterval(recurring, 60000);
