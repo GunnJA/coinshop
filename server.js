@@ -183,7 +183,7 @@ function processLeDump(array,item,collection) {
     let CC1 = [];
     let dump = JSON.parse(array);
     let resultspage = dump.result;
-    async.each(resultspage, function(page, err) {
+    async.each(resultspage, function(page, callback) {
       let market = page.MarketName;
       if (market.substring(0, 3) === "BTC") {
         queryOrders(market).then(function(obj) {
@@ -192,8 +192,8 @@ function processLeDump(array,item,collection) {
           //console.log(CC1.length)
           CC1.push(resultObj);
         });
+        callback(null);
       }
-      console.log("test")
     }, function(err) {
       // all data has been updated
       // do whatever you want
