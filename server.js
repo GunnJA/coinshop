@@ -11,6 +11,7 @@ let database;
 //let collectCoins2;
 let dump;
 let CC1 = [];
+let indexArr = ["a", "b", "c", "d", "e"];
 //https://www.reddit.com/search.json?q=xvg&t=hour
 
 //DB functions
@@ -170,7 +171,7 @@ function evalOrders(market,arr) {
   }  
 }
 
-function processDump(array,collection) {
+function processDump(array,item,collection) {
   let dump = JSON.parse(array);
   let resultspage1 = dump.result;
   console.log("resultspage1",resultspage1[1]);
@@ -180,12 +181,12 @@ function processDump(array,collection) {
       queryOrders(market).then(function(obj) {
         let resultObj = resultspage1[i];
         resultObj["orderInfo"] = obj;
+        let subObj = {};
+        subObj["MarketName"] = market;
+        subObj["Results"] = resultObj;
         let entryObj = {};
-        entryObj["MarketName"] = market;
-        entryObj["Results"] = resultObj;
-        //console.log(entryObj)
+        entryObj[item] = subObj;
         dbInsert(collection,entryObj);
-        //console.log(entryObj);
         CC1.push(resultObj);
       });
     }
@@ -238,6 +239,8 @@ function recurring() {
           rename("collectCoins1").then(function() {
             creator("collectCoins1").then(function() {
               queryMarket().then(function(array) {
+                let item = indexArr.pop();
+                
                 processDump(array, database.collection("collectCoins1"));
               });
             });
