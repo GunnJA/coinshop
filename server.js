@@ -183,10 +183,10 @@ function processLeDump(array,item,collection) {
           let resultObj = page;
           resultObj["orderInfo"] = obj;
           CC1.push(resultObj);
+          console.log("CC1Len",CC1.length)
         })
       }
     }
-    console.log("CC1",CC1)
   });
 }
 
