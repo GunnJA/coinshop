@@ -206,12 +206,14 @@ function processDump(array,item,collection) {
 function processLeDump(array,item,collection) {
   let i = 0;
   let CC1 = [];
+  let dump = JSON.parse(array);
+  console.log("Finder");
   let resultspage = dump.result;
-  async.each(resultspage, resultspage) {
-    let market = resultspage[i].MarketName;
+  async.each(resultspage, function(page, err) {
+    let market = page.MarketName;
     if (market.substring(0, 3) === "BTC") {
         queryOrders(market).then(function(obj) {
-          let resultObj = resultspage[i];
+          let resultObj = page;
           resultObj["orderInfo"] = obj;
           console.log(CC1.length)
           CC1.push(resultObj);
@@ -234,7 +236,7 @@ function recurring(collection) {
   queryMarket().then(function(array) {
     let item = indexArr.pop();
     console.log("item", item, indexArr)
-    processDump(array, item, collection).then(function(obj) {
+    processLeDump(array, item, collection).then(function(obj) {
       let entryObj = {};
       entryObj[item] = obj;
       console.log("CC1",obj);
