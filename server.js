@@ -12,6 +12,7 @@ let collCoinRoll;
 //let collectCoins2;
 let dump;
 let indexArr = ["a", "b", "c", "d", "e"];
+let latest;
 //https://www.reddit.com/search.json?q=xvg&t=hour
 
 //DB functions
@@ -193,6 +194,7 @@ function forLoop(arr) {
             console.log("len",arr.length);
             console.log("cl",CC1.length);
             //console.log("CC1 up",CC1);
+            latest = CC1;
             resolve(CC1);
           }
         })
@@ -220,10 +222,11 @@ function recurring() {
   queryMarket().then(function(array) {
     let item = indexArr.pop();
     console.log("item", item, indexArr)
-    collCoinRoll.remove({$eq: item});
+    collCoinRoll.remove({ "item" : item});
     processLeDump(array, item, collCoinRoll).then(function(obj) {
       let entryObj = {};
-      entryObj[item] = obj;
+      entryObj["item"] = item;
+      entryObj["data"] = obj;
       //console.log("CC1",obj); 
       dbInsert(collCoinRoll,entryObj);
       indexArr.unshift(item);
@@ -232,36 +235,31 @@ function recurring() {
 }
 
 app.get("/get/latest", function (req, res) {
-  let queryItem = indexArr[0];
-  dbFindAll(collCoinRoll, {queryItem}).then(function(obj) {
+  dbFindOne(collCoinRoll, { "item": indexArr[0] }).then(function(obj) {
     res.send(obj);
   });
 });
 
 app.get("/get/CC2", function (req, res) {
-  let queryItem = indexArr[1];
-  dbFindAll(collCoinRoll, {queryItem}).then(function(obj) {
+  dbFindOne(collCoinRoll, { "item": indexArr[1] }).then(function(obj) {
     res.send(obj);
   });
 });
 
 app.get("/get/CC3", function (req, res) {
-  let queryItem = indexArr[2];
-  dbFindAll(collCoinRoll, {queryItem}).then(function(obj) {
+  dbFindOne(collCoinRoll, { "item": indexArr[2] }).then(function(obj) {
     res.send(obj);
   });
 });
 
 app.get("/get/CC4", function (req, res) {
-  let queryItem = indexArr[3];
-  dbFindAll(collCoinRoll, {queryItem}).then(function(obj) {
+  dbFindOne(collCoinRoll, { "item": indexArr[3] }).then(function(obj) {
     res.send(obj);
   });
 });
 
 app.get("/get/CC5", function (req, res) {
-  let queryItem = indexArr[4];
-  dbFindAll(collCoinRoll, {queryItem}).then(function(obj) {
+  dbFindOne(collCoinRoll, { "item": indexArr[4] }).then(function(obj) {
     res.send(obj);
   });
 });

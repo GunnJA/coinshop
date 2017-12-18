@@ -15,6 +15,7 @@ setInterval(recurring, 15000);
 
 function recurring() {
   $.get(`/get/latest`, function(arr) {
+    console.log("arr",arr)
     CC1 = arr.sort(function(a,b) {
       if (a.MarketName > b.MarketName) {
         return 1
@@ -24,8 +25,8 @@ function recurring() {
     });
   });
   getData("CC2").then(function(obj2) {
-    CC2 = toObject(obj2);
-    //console.log(CC2);
+    CC2 = obj2.data;
+    console.log(CC2);
     getData("CC3").then(function(obj3) {
       CC3 = toObject(obj3);
       getData("CC4").then(function(obj4) {
