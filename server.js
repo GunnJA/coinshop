@@ -178,7 +178,7 @@ function addOrderInfo(page,obj) {
 
 function forLoop(arr) {
   return new Promise(function(resolve,reject) {
-    let dumpArr = [];
+    let dumpObj = {};
     let latestTemp = [];
     for (let i = 0; i < arr.length; i += 1) {
       let page = arr[i];
@@ -188,15 +188,13 @@ function forLoop(arr) {
           let resultObj = page;
           resultObj["orderInfo"] = obj;
           let upperObj = {};
-          upperObj[market] = resultObj;
-          dumpArr.push(upperObj);
+          dumpObj[market] = resultObj;
           latestTemp.push(resultObj);
-          if (dumpArr.length === 199) {
+          if (dumpObj.length === 199) {
             console.log("len",arr.length);
-            console.log("cl",dumpArr.length);
             //console.log("CC1 up",CC1);
             latest = latestTemp;
-            resolve(dumpArr);
+            resolve(dumpObj);
           }
         })
       }
@@ -204,7 +202,7 @@ function forLoop(arr) {
   });
 }
 
-function processLeDump(array,item,collection) {
+function processLeDump(array) {
   return new Promise(function(resolve,reject) {
     let dump = JSON.parse(array);
     let resultPage = dump.result;
@@ -224,7 +222,7 @@ function recurring() {
     let item = indexArr.pop();
     console.log("item", item, indexArr)
     collCoinRoll.remove({ "item" : item});
-    processLeDump(array, item, collCoinRoll).then(function(obj) {
+    processLeDump(array).then(function(obj) {
       let entryObj = {};
       entryObj["item"] = item;
       entryObj["data"] = obj;
