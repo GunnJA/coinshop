@@ -177,52 +177,30 @@ function abc(resultPage,i,obj) {
   })
 }
 
-function processDump(array,item,collection) {
+function processLeDump(array,item,collection) {
   return new Promise(function(resolve,reject) {
+    let i = 0;
     let CC1 = [];
     let dump = JSON.parse(array);
-    let resultspage1 = dump.result;
-    //console.log("resultspage1",resultspage1[1]);
-    for (let i=1; i < resultspage1.length; i+= 1) {
-      let market = resultspage1[i].MarketName;
+    let resultspage = dump.result;
+    async.each(resultspage, function(page, err) {
+      let market = page.MarketName;
       if (market.substring(0, 3) === "BTC") {
         queryOrders(market).then(function(obj) {
-          abc(resultspage1,i,obj).then(function(obj) {
-            CC1.push(obj);
-            if (i === (resultspage1.length -1)) {
-            console.log("i",i);
-            console.log("cc1",CC1,resultspage1.length -1)
-            resolve(CC1);
-            }
-          })
-
+          let resultObj = page;
+          resultObj["orderInfo"] = obj;
+          //console.log(CC1.length)
+          CC1.push(resultObj);
         });
       }
-    }
-  })
-
-}
-
-function processLeDump(array,item,collection, cb) {
-  let i = 0;
-  let CC1 = [];
-  let dump = JSON.parse(array);
-  let resultspage = dump.result;
-  async.each(resultspage, function(page, err) {
-    let market = page.MarketName;
-    if (market.substring(0, 3) === "BTC") {
-      cb(market).then(function(obj) {
-        let resultObj = page;
-        resultObj["orderInfo"] = obj;
-        console.log(CC1.length)
-        CC1.push(resultObj);
-      });
-    }
-  }, function(err) {
-    // all data has been updated
-    // do whatever you want
-    console.log("CC1",CC1);
-    return CC1;
+      console.log("test")
+    }, function(err) {
+      // all data has been updated
+      // do whatever you want
+      console.log(err);
+      console.log("CC1");
+      resolve(CC1);
+    });
   });
 }
 
@@ -235,7 +213,7 @@ function recurring(collection) {
   queryMarket().then(function(array) {
     let item = indexArr.pop();
     console.log("item", item, indexArr)
-    processLeDump(array, item, collection, queryOrders).then(function(obj) {
+    processLeDump(array, item, collection).then(function(obj) {
       let entryObj = {};
       entryObj[item] = obj;
       console.log("CC1",obj);
