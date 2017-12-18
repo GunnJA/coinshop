@@ -186,18 +186,18 @@ function forLoop(arr) {
           let resultObj = page;
           resultObj["orderInfo"] = obj;
           CC1.push(resultObj);
-          console.log(CC1.length)
-          console.log("i",i)
-          if (i === (arr.length - 1)) {
+          //console.log(CC1.length)
+          //console.log("i",i)
+          if (CC1.length === 199) {
             console.log("len",arr.length);
             console.log("cl",CC1.length);
-            console.log("CC1 up",CC1);
+            //console.log("CC1 up",CC1);
             resolve(CC1);
           }
-      })
+        })
+      }
     }
-  }
-});
+  });
 }
 
 function processLeDump(array,item,collection) {
@@ -211,7 +211,7 @@ function processLeDump(array,item,collection) {
 
 
 dbProm.then(function() {
-  //setInterval(recurring, 60000);
+  setInterval(recurring, 60000);
   setTimeout(recurring, 1000);
 });
 
@@ -222,7 +222,7 @@ function recurring() {
     processLeDump(array, item, collCoinRoll).then(function(obj) {
       let entryObj = {};
       entryObj[item] = obj;
-      console.log("CC1",obj);
+      //console.log("CC1",obj); 
       dbInsert(collCoinRoll,entryObj);
       indexArr.unshift(item);
     });
