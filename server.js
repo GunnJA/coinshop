@@ -18,12 +18,9 @@ let indexArr = ["a", "b", "c", "d", "e"];
 let dbProm = new Promise(function(resolve, reject) {
   mongo.connect('mongodb://gunnja:gunnja@ds131854.mlab.com:31854/fccdb',(err, db) => {
       if (err) throw err
-      else console.log("db connection successful")
+      else console.log("db connection successful");
       collCoinRoll = db.collection("coinRoll");
-      //collectCoins2 = db.collection("coins2");
-      
-      database = db;
-      resolve();
+      resolve(collCoinRoll);
   // db.close();
   });
 });
@@ -173,6 +170,7 @@ function evalOrders(market,arr) {
 }
 
 function processDump(array,item,collection) {
+  return new Promise(function (resolve, reject) {
   let dump = JSON.parse(array);
   let resultspage1 = dump.result;
   console.log("resultspage1",resultspage1[1]);
@@ -189,23 +187,26 @@ function processDump(array,item,collection) {
       });
     }
   }
-  let entryObj = {};
-  entryObj[item] = CC1;
-  dbInsert(collection,entryObj);
+  })
+
 }
 
-dbProm.then(function() {
+dbProm.then(function(collection) {
   //setInterval(recurring, 60000);
-  setTimeout(recurring, 1000);
+  setTimeout(recurring(collection), 1000);
 });
 
-function recurring() {
+function recurring(collection) {
   CC1 = [];
   queryMarket().then(function(array) {
     let item = indexArr.pop();
-    processDump(array, item, collCoinRoll);
-    indexArr.unshift(item);
-  })
+    processDump(array, item, collection).then(function(obj) {
+      let entryObj = {};
+      entryObj[item] = CC1;
+      dbInsert(collection,entryObj);
+      indexArr.unshift(item);
+    });
+  });
 }
 
 app.get("/get/latest", function (req, res) {
