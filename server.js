@@ -190,7 +190,7 @@ function forLoop(arr) {
           let upperObj = {};
           dumpObj[market] = resultObj;
           latestTemp.push(resultObj);
-          if (dumpObj.length === 199) {
+          if (latestTemp.length === 199) {
             console.log("len",arr.length);
             //console.log("CC1 up",CC1);
             latest = latestTemp;
@@ -224,11 +224,11 @@ function recurring() {
     collCoinRoll.remove({ "item" : item});
     processLeDump(array).then(function(obj) {
       let entryObj = {};
+      indexArr.unshift(item);
       entryObj["item"] = item;
       entryObj["data"] = obj;
       //console.log("CC1",obj); 
       dbInsert(collCoinRoll,entryObj);
-      indexArr.unshift(item);
     });
   });
 }

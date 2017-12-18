@@ -26,6 +26,7 @@ function recurring() {
   });
   getData("CC2").then(function(obj) {
     CC2 = obj;
+    
     console.log(CC2);
     getData("CC3").then(function(obj) {
       CC3 = obj;
