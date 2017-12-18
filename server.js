@@ -177,28 +177,35 @@ function abc(resultPage,i,obj) {
   })
 }
 
+function pusher(arr,item) {
+  arr.push(item);
+}
+
 function processLeDump(array,item,collection) {
   return new Promise(function(resolve,reject) {
     let i = 0;
     let CC1 = [];
     let dump = JSON.parse(array);
     let resultspage = dump.result;
-    async.each(resultspage, function(page, callback) {
+    async.each(resultspage, function(page, pusher) {
       let market = page.MarketName;
       if (market.substring(0, 3) === "BTC") {
         queryOrders(market).then(function(obj) {
+          return new Promise(function(resolve,reject) {
           let resultObj = page;
           resultObj["orderInfo"] = obj;
-          //console.log(CC1.length)
-          CC1.push(resultObj);
+          resolve(resultObj);
+          }).then(function(resObj) {
+            pusher(CC1,resObj)
+            console.log("1")
+          });
         });
-        callback(null);
       }
     }, function(err) {
       // all data has been updated
       // do whatever you want
       console.log(err);
-      console.log("CC1");
+      console.log("CC16",CC1);
       resolve(CC1);
     });
   });
