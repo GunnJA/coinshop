@@ -10,7 +10,6 @@ let database;
 let collCoinRoll;
 //let collectCoins2;
 let dump;
-let CC1 = [];
 let indexArr = ["a", "b", "c", "d", "e"];
 //https://www.reddit.com/search.json?q=xvg&t=hour
 
@@ -171,6 +170,7 @@ function evalOrders(market,arr) {
 
 function processDump(array,item,collection) {
   return new Promise(function (resolve, reject) {
+    let CC1 = [];
     let dump = JSON.parse(array);
     let resultspage1 = dump.result;
     //console.log("resultspage1",resultspage1[1]);
@@ -181,13 +181,15 @@ function processDump(array,item,collection) {
           let resultObj = resultspage1[i];
           //let subObj = {};
           resultObj["orderInfo"] = obj;
+          console.log("res",resultObj);
           //subObj["MarketName"] = market;
           //subObj["Results"] = resultObj;
           CC1.push(resultObj);
         });
       }
     }
-    resolve();
+    console.log("cc1",CC1);
+    resolve(CC1);
   })
 }
 
@@ -197,14 +199,13 @@ dbProm.then(function(collection) {
 });
 
 function recurring(collection) {
-  CC1 = [];
   queryMarket().then(function(array) {
     let item = indexArr.pop();
     console.log("item", item, indexArr)
     processDump(array, item, collection).then(function(obj) {
       let entryObj = {};
-      entryObj[item] = CC1;
-      console.log("CC1",CC1);
+      entryObj[item] = obj;
+      console.log("CC1",obj);
       dbInsert(collection,entryObj);
       indexArr.unshift(item);
     });
@@ -212,7 +213,10 @@ function recurring(collection) {
 }
 
 app.get("/get/latest", function (req, res) {
-  res.send(CC1);
+  let queryItem = indexArr[0];
+  dbFindAll(collCoinRoll, {queryItem}).then(function(obj) {
+    res.send(obj);
+  });
 });
 
 app.get("/get/CC2", function (req, res) {
