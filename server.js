@@ -169,6 +169,8 @@ function evalOrders(market,arr) {
   }  
 }
 
+function
+
 function forLoop(arr) {
   return new Promise(function(resolve,reject) {
     let CC1 = [];
@@ -177,17 +179,18 @@ function forLoop(arr) {
         let market = page.MarketName;
         if (market.substring(0, 3) === "BTC") {
           queryOrders(market).then(function(obj) {
-            let resultObj = page;
-            resultObj["orderInfo"] = obj;
+
             CC1.push(resultObj);
-            console.log("CC1Len",CC1.length)
+            //console.log("CC1Len",CC1.length)
           })
         }
-      if (i === (arr.length - 1)) {
-        console.log(arr.length);
-        console.log(CC1);
-        resolve(CC1);
-      }
+        if (i === (arr.length - 1)) {
+          console.log("len",arr.length);
+          console.log("cl",CC1.length);
+          resolve(CC1);
+        } else {
+          //console.log(market);
+        }
     }
   });
 }
