@@ -12,7 +12,7 @@ let collCoinRoll;
 //let collectCoins2;
 let dump;
 let indexArr = ["a", "b", "c", "d", "e"];
-let latest;
+let latest = [];
 //https://www.reddit.com/search.json?q=xvg&t=hour
 
 //DB functions
@@ -178,7 +178,8 @@ function addOrderInfo(page,obj) {
 
 function forLoop(arr) {
   return new Promise(function(resolve,reject) {
-    let CC1 = [];
+    let dumpArr = [];
+    latest = [];
     for (let i = 0; i < arr.length; i += 1) {
       let page = arr[i];
       let market = page.MarketName;
@@ -189,13 +190,13 @@ function forLoop(arr) {
           let upperObj = {};
           upperObj["market"] = market;
           upperObj["results"] = resultObj;
-          CC1.push(upperObj);
-          if (CC1.length === 199) {
+          dumpArr.push(upperObj);
+          if (dumpArr.length === 199) {
             console.log("len",arr.length);
-            console.log("cl",CC1.length);
+            console.log("cl",dumpArr.length);
             //console.log("CC1 up",CC1);
-            latest = CC1;
-            resolve(CC1);
+            latest.push(resultObj);
+            resolve(dumpArr);
           }
         })
       }
@@ -235,9 +236,7 @@ function recurring() {
 }
 
 app.get("/get/latest", function (req, res) {
-  dbFindOne(collCoinRoll, { "item": indexArr[0] }).then(function(obj) {
-    res.send(obj);
-  });
+    res.send(latest);
 });
 
 app.get("/get/CC2", function (req, res) {
