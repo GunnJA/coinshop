@@ -24,15 +24,15 @@ function recurring() {
       }
     });
   });
-  getData("CC2").then(function(obj2) {
-    CC2 = obj2.data;
+  getData("CC2").then(function(obj) {
+    CC2 = obj;
     console.log(CC2);
-    getData("CC3").then(function(obj3) {
-      CC3 = toObject(obj3);
-      getData("CC4").then(function(obj4) {
-        CC4 = toObject(obj4);
-        getData("CC5").then(function(obj5) {
-          CC5 = toObject(obj5);
+    getData("CC3").then(function(obj) {
+      CC3 = obj;
+      getData("CC4").then(function(obj) {
+        CC4 = obj;
+        getData("CC5").then(function(obj) {
+          CC5 = obj;
           //console.log("CC5",obj5);
           displayData(CC1,CC2,CC3,CC4,CC5);
         });
@@ -45,7 +45,7 @@ function getData(CC) {
   return new Promise(function(resolve,reject) {
     $.get(`/get/${CC}`, function(obj) {
       //console.log("CC5",CC5.length);
-      resolve(obj);
+      resolve(obj.data);
     });
   });
 }

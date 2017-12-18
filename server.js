@@ -179,7 +179,7 @@ function addOrderInfo(page,obj) {
 function forLoop(arr) {
   return new Promise(function(resolve,reject) {
     let dumpArr = [];
-    latest = [];
+    let latestTemp = [];
     for (let i = 0; i < arr.length; i += 1) {
       let page = arr[i];
       let market = page.MarketName;
@@ -191,11 +191,12 @@ function forLoop(arr) {
           upperObj["market"] = market;
           upperObj["results"] = resultObj;
           dumpArr.push(upperObj);
+          latestTemp.push(resultObj);
           if (dumpArr.length === 199) {
             console.log("len",arr.length);
             console.log("cl",dumpArr.length);
             //console.log("CC1 up",CC1);
-            latest.push(resultObj);
+            latest = latestTemp;
             resolve(dumpArr);
           }
         })
