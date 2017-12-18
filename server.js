@@ -109,7 +109,7 @@ function queryMarket() {
       });
     });
     req.end();
-    })
+  })
 }
 
 // bittrex order api req
@@ -171,9 +171,7 @@ function evalOrders(market,arr) {
 
 function addOrderInfo(page,obj) {
   return new Promise(function(resolve,reject) {
-    let resultObj = page;
-    resultObj["orderInfo"] = obj;
-    resolve(resultObj);
+
   });
 }
 
@@ -185,23 +183,21 @@ function forLoop(arr) {
       let market = page.MarketName;
       if (market.substring(0, 3) === "BTC") {
         queryOrders(market).then(function(obj) {
-          addOrderInfo(page,obj).then(function(resultObj) {
-            CC1.push(resultObj);
-            console.log(CC1)
-          })
-          //console.log("CC1Len",CC1.length)
-        })
-      }
-      if (i === (arr.length - 1)) {
-        console.log("len",arr.length);
-        console.log("cl",CC1.length);
-        console.log("CC1 up",CC1);
-        resolve(CC1);
-      } else {
-        //console.log(market);
-      }
+          let resultObj = page;
+          resultObj["orderInfo"] = obj;
+          CC1.push(resultObj);
+          console.log(CC1.length)
+          console.log("i",i)
+          if (i === (arr.length - 1)) {
+            console.log("len",arr.length);
+            console.log("cl",CC1.length);
+            console.log("CC1 up",CC1);
+            resolve(CC1);
+          }
+      })
     }
-  });
+  }
+});
 }
 
 function processLeDump(array,item,collection) {
