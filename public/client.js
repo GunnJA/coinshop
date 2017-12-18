@@ -26,14 +26,16 @@ function recurring() {
   });
   getData("CC2").then(function(obj) {
     CC2 = obj;
-    
-    console.log(CC2);
     getData("CC3").then(function(obj) {
       CC3 = obj;
       getData("CC4").then(function(obj) {
         CC4 = obj;
         getData("CC5").then(function(obj) {
           CC5 = obj;
+          if (!CC2) console.log("CC2 undefined");
+          if (!CC3) console.log("CC3 undefined");
+          if (!CC4) console.log("CC4 undefined");
+          if (!CC5) console.log("CC5 undefined");
           //console.log("CC5",obj5);
           displayData(CC1,CC2,CC3,CC4,CC5);
         });
@@ -74,6 +76,10 @@ function bittrexURL(marketName) {
 
 
 function displayData(arr1, obj2, obj3, obj4, obj5) {
+  if (!obj2) console.log("obj2 undefined");
+  if (!obj3) console.log("obj3 undefined");
+  if (!obj4) console.log("obj4 undefined");
+  if (!obj5) console.log("obj5 undefined");
   let newHTML = `<div id="containerDiv"><table class="tg"><tr><th class="tg-baqh" colspan="23">Coin Markets</th></tr>`;
   newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Fluc %</td><td class="tg-6k2t">Daily High</td><td class="tg-6k2t">Daily Low</td><td class="tg-6k2t">% > Low</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(5)</td>`;
@@ -96,8 +102,7 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
     let item1 = arr1[key];
     let item1Name = item1.MarketName;
     let OI1 = item1.orderInfo;
-    let item5 = obj5.item1Name;
-    console.log(obj5);
+    let item5 = obj5[item1Name];
     let OI5 = item5.orderInfo;
     if (OI1["timeSpan"] <= 7 || OI5["timeSpan"] <= 7) {
       //console.log(item1Name);
