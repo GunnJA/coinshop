@@ -191,6 +191,10 @@ function processDump(array,item,collection) {
   return CC1;
 }
 
+function forLoop() {
+    
+}
+
 dbProm.then(function(collection) {
   //setInterval(recurring, 60000);
   setTimeout(recurring(collection), 1000);
