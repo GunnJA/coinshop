@@ -7,7 +7,7 @@ const key = process.env.CS_KEY;
 let loggedIn = false;
 let offsetDefault = 10;
 let database;
-//let collectCoins1;
+let collCoinRoll;
 //let collectCoins2;
 let dump;
 let CC1 = [];
@@ -19,8 +19,9 @@ let dbProm = new Promise(function(resolve, reject) {
   mongo.connect('mongodb://gunnja:gunnja@ds131854.mlab.com:31854/fccdb',(err, db) => {
       if (err) throw err
       else console.log("db connection successful")
-      //collectCoins1 = db.collection("coins1");
+      collCoinRoll = db.collection("coinRoll");
       //collectCoins2 = db.collection("coins2");
+      
       database = db;
       resolve();
   // db.close();
@@ -193,38 +194,6 @@ function processDump(array,item,collection) {
   dbInsert(collection,entryObj);
 }
 
-function rename(collection) {
-  return new Promise(function(resolve,reject) {
-    if (database.collection(collection)) {
-      let num = parseInt(collection.substr(12, 1));
-      console.log(collection,`collectCoins${num + 1}`);
-      let coll = database.collection(collection);
-      resolve(coll.rename(`collectCoins${num + 1}`));
-    }  else resolve(console.log(`${collection} doesnt exist`));
-  });
-}
-
-function dropper(collection) {
-  return new Promise(function(resolve,reject) {
-    console.log(`drop ${collection}`);
-    database.listCollections({"name": collection})
-    .next(function(err, collInfo) {
-        if (collInfo) {
-          resolve(database.collection(collection).drop());
-        } else {
-          resolve(console.log(`${collection} not found`));          
-        }
-    });
-  });
-}
-
-function creator(collection) {
-  return new Promise(function(resolve,reject) {
-    console.log(`create ${collection}`);
-    resolve(database.createCollection(collection));
-  });
-}
-
 dbProm.then(function() {
   //setInterval(recurring, 60000);
   //setTimeout(recurring, 1000);
@@ -232,49 +201,19 @@ dbProm.then(function() {
 
 function recurring() {
   CC1 = [];
-  dropper("collectCoins5").then(function() {
-    rename("collectCoins4").then(function() {
-      rename("collectCoins3").then(function() {
-        rename("collectCoins2",).then(function() {
-          rename("collectCoins1").then(function() {
-            creator("collectCoins1").then(function() {
-              queryMarket().then(function(array) {
-                let item = indexArr.pop();
-                
-                processDump(array, database.collection("collectCoins1"));
-              });
-            });
-          });
-        });
-      });
-    });
-  });
+  queryMarket().then(function(array) {
+    let item = indexArr.pop();
+    processDump(array, item, collCoinRoll);
+    indexArr.unshift(item);
+  })
 }
 
 app.get("/get/latest", function (req, res) {
   res.send(CC1);
 });
 
-app.get("/get/CC2", function (req, res) {
-  dbFindAll(database.collection("collectCoins2"),{}).then(function(obj) {
-    res.send(obj);
-  });
-});
-
-app.get("/get/CC3", function (req, res) {
-  dbFindAll(database.collection("collectCoins3"),{}).then(function(obj) {
-    res.send(obj);
-  });
-});
-
-app.get("/get/CC4", function (req, res) {
-  dbFindAll(database.collection("collectCoins4"),{}).then(function(obj) {
-    res.send(obj);
-  });
-});
-
-app.get("/get/CC5", function (req, res) {
-  dbFindAll(database.collection("collectCoins5"),{}).then(function(obj) {
+app.get("/get/cc2", function (req, res) {
+  dbFindAll(collCoinRoll,{}).then(function(obj) {
     res.send(obj);
   });
 });
