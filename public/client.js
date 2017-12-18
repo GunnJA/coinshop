@@ -93,9 +93,10 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
   $.each(arr1, function(key, value) {
     //console.log("arr1key", arr1[key]);
     let item1 = arr1[key];
-    let item1Name = item1.Market;
+    let item1Name = item1.MarketName;
     let OI1 = item1.orderInfo;
-    let item5 = obj5[item1Name];
+    let item5 = obj5.item1Name;
+    console.log(obj5[item1Name]);
     let OI5 = item5.orderInfo;
     if (OI1["timeSpan"] <= 7 || OI5["timeSpan"] <= 7) {
       //console.log(item1Name);
