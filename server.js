@@ -183,12 +183,22 @@ function pusher(arr,item) {
 
 function processLeDump(array,item,collection) {
   return new Promise(function(resolve,reject) {
-    let i = 0;
     let CC1 = [];
     let dump = JSON.parse(array);
     let resultspage = dump.result;
-    async.each(resultspage, function(page, pusher) {
+    for (let i = 0; i < resultspage.length; i += 1) {
+      let page = resultspage[i]
       let market = page.MarketName;
+      if (market.substring(0, 3) === "BTC") {
+        queryOrders(market).then(function(obj) {
+          let resultObj = page;
+          resultObj["orderInfo"] = obj;
+          resolve(resultObj);
+    }
+    
+    
+    async.each(resultspage, function(page, pusher) {
+
       if (market.substring(0, 3) === "BTC") {
         queryOrders(market).then(function(obj) {
           return new Promise(function(resolve,reject) {
