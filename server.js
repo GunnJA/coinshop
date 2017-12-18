@@ -207,23 +207,16 @@ function processLeDump(array,item,collection) {
   let i = 0;
   let CC1 = [];
   let resultspage = dump.result;
-  async.each(resultspage, function(iterItem, next) {
+  async.each(resultspage, resultspage) {
     let market = resultspage[i].MarketName;
     if (market.substring(0, 3) === "BTC") {
         queryOrders(market).then(function(obj) {
           let resultObj = resultspage[i];
           resultObj["orderInfo"] = obj;
+          console.log(CC1.length)
           CC1.push(resultObj);
         });
     }
-    iterItem.position = i;
-    iterItem.save(function(err, results) {
-        // i is increased because we need it on line 5
-        i++;
-        // the next() function is called when you
-        // want to move to the next item in the array
-        next();
-    });
   }, function(err) {
     // all data has been updated
     // do whatever you want
