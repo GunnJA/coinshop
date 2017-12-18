@@ -186,7 +186,8 @@ function forLoop(arr) {
           let resultObj = page;
           resultObj["orderInfo"] = obj;
           let upperObj = {};
-          upperObj[market] = resultObj
+          upperObj["market"] = market;
+          upperObj["results"] = resultObj;
           CC1.push(upperObj);
           if (CC1.length === 199) {
             console.log("len",arr.length);
@@ -211,7 +212,7 @@ function processLeDump(array,item,collection) {
 
 
 dbProm.then(function() {
-  setInterval(recurring, 60000);
+  setInterval(recurring, 5000);
   setTimeout(recurring, 1000);
 });
 
@@ -219,6 +220,7 @@ function recurring() {
   queryMarket().then(function(array) {
     let item = indexArr.pop();
     console.log("item", item, indexArr)
+    collCoinRoll.remove({$eq: item});
     processLeDump(array, item, collCoinRoll).then(function(obj) {
       let entryObj = {};
       entryObj[item] = obj;
