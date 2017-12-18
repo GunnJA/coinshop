@@ -191,20 +191,20 @@ function processLeDump(array,item,collection) {
 }
 
 
-dbProm.then(function(collection) {
+dbProm.then(function() {
   //setInterval(recurring, 60000);
-  setTimeout(recurring(collection), 1000);
+  setTimeout(recurring, 1000);
 });
 
-function recurring(collection) {
+function recurring() {
   queryMarket().then(function(array) {
     let item = indexArr.pop();
     console.log("item", item, indexArr)
-    processLeDump(array, item, collection).then(function(obj) {
+    processLeDump(array, item, collCoinRoll).then(function(obj) {
       let entryObj = {};
       entryObj[item] = obj;
       console.log("CC1",obj);
-      dbInsert(collection,entryObj);
+      dbInsert(collCoinRoll,entryObj);
       indexArr.unshift(item);
     });
   });
