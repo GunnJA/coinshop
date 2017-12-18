@@ -139,7 +139,7 @@ function queryOrders(market) {
       });
     });
     req.end();
-    })
+  })
 }
 
 function evalOrders(market,arr) {
@@ -203,21 +203,20 @@ function processDump(array,item,collection) {
 
 }
 
-function processLeDump(array,item,collection) {
+function processLeDump(array,item,collection, cb) {
   let i = 0;
   let CC1 = [];
   let dump = JSON.parse(array);
-  console.log("Finder");
   let resultspage = dump.result;
   async.each(resultspage, function(page, err) {
     let market = page.MarketName;
     if (market.substring(0, 3) === "BTC") {
-        queryOrders(market).then(function(obj) {
-          let resultObj = page;
-          resultObj["orderInfo"] = obj;
-          console.log(CC1.length)
-          CC1.push(resultObj);
-        });
+      cb(market).then(function(obj) {
+        let resultObj = page;
+        resultObj["orderInfo"] = obj;
+        console.log(CC1.length)
+        CC1.push(resultObj);
+      });
     }
   }, function(err) {
     // all data has been updated
@@ -236,7 +235,7 @@ function recurring(collection) {
   queryMarket().then(function(array) {
     let item = indexArr.pop();
     console.log("item", item, indexArr)
-    processLeDump(array, item, collection).then(function(obj) {
+    processLeDump(array, item, collection, queryOrders).then(function(obj) {
       let entryObj = {};
       entryObj[item] = obj;
       console.log("CC1",obj);
