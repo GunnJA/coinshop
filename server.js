@@ -184,6 +184,8 @@ function forLoop(arr) {
           })
         }
       if (i === (arr.length - 1)) {
+        console.log(arr.length);
+        console.log(CC1);
         resolve(CC1);
       }
     }
@@ -195,6 +197,7 @@ function processLeDump(array,item,collection) {
     let dump = JSON.parse(array);
     let resultPage = dump.result;
     let CC1 = forLoop(resultPage);
+    resolve(CC1);
   });
 }
 
