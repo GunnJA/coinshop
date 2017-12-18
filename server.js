@@ -196,7 +196,7 @@ function processDump(array,item,collection) {
 
 dbProm.then(function() {
   //setInterval(recurring, 60000);
-  //setTimeout(recurring, 1000);
+  setTimeout(recurring, 1000);
 });
 
 function recurring() {
@@ -212,8 +212,30 @@ app.get("/get/latest", function (req, res) {
   res.send(CC1);
 });
 
-app.get("/get/cc2", function (req, res) {
-  dbFindAll(collCoinRoll,{}).then(function(obj) {
+app.get("/get/CC2", function (req, res) {
+  let queryItem = indexArr[1];
+  dbFindAll(collCoinRoll, {queryItem}).then(function(obj) {
+    res.send(obj);
+  });
+});
+
+app.get("/get/CC3", function (req, res) {
+  let queryItem = indexArr[2];
+  dbFindAll(collCoinRoll, {queryItem}).then(function(obj) {
+    res.send(obj);
+  });
+});
+
+app.get("/get/CC4", function (req, res) {
+  let queryItem = indexArr[3];
+  dbFindAll(collCoinRoll, {queryItem}).then(function(obj) {
+    res.send(obj);
+  });
+});
+
+app.get("/get/CC5", function (req, res) {
+  let queryItem = indexArr[4];
+  dbFindAll(collCoinRoll, {queryItem}).then(function(obj) {
     res.send(obj);
   });
 });
