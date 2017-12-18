@@ -188,8 +188,7 @@ function forLoop(arr) {
           let resultObj = page;
           resultObj["orderInfo"] = obj;
           let upperObj = {};
-          upperObj["market"] = market;
-          upperObj["results"] = resultObj;
+          upperObj[market] = resultObj;
           dumpArr.push(upperObj);
           latestTemp.push(resultObj);
           if (dumpArr.length === 199) {
@@ -216,7 +215,7 @@ function processLeDump(array,item,collection) {
 
 
 dbProm.then(function() {
-  setInterval(recurring, 5000);
+  setInterval(recurring, 30000);
   setTimeout(recurring, 1000);
 });
 
