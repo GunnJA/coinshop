@@ -168,6 +168,14 @@ function evalOrders(market,arr) {
   }  
 }
 
+function abc(resultPage,i,obj) {
+  return new Promise(function(resolve,reject) {
+    let resultObj = resultPage[i];
+    resultObj["orderInfo"] = obj;
+    resolve(resultObj);
+  })
+}
+
 function processDump(array,item,collection) {
   return new Promise(function(resolve,reject) {
     let CC1 = [];
@@ -178,16 +186,14 @@ function processDump(array,item,collection) {
     let market = resultspage1[i].MarketName;
     if (market.substring(0, 3) === "BTC") {
       queryOrders(market).then(function(obj) {
-        let resultObj = resultspage1[i];
-        //let subObj = {};
-        resultObj["orderInfo"] = obj;
-        //console.log("res",resultObj);
-        //subObj["MarketName"] = market;
-        //subObj["Results"] = resultObj;
-        CC1.push(resultObj);
+        abc(resultspage1,i,obj).then(function(obj) {
+          
+        })
+
       });
     }
     if (i === (resultspage1.length -1)) {
+      console.log("i",i);
         console.log("cc1",CC1,resultspage1.length -1)
       resolve(CC1);
     }
