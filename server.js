@@ -171,24 +171,24 @@ function evalOrders(market,arr) {
 
 function processDump(array,item,collection) {
   return new Promise(function (resolve, reject) {
-  let dump = JSON.parse(array);
-  let resultspage1 = dump.result;
-  console.log("resultspage1",resultspage1[1]);
-  for (let i=1; i < resultspage1.length; i+= 1) {
-    let market = resultspage1[i].MarketName;
-    if (market.substring(0, 3) === "BTC") {
-      queryOrders(market).then(function(obj) {
-        let resultObj = resultspage1[i];
-        let subObj = {};
-        resultObj["orderInfo"] = obj;
-        subObj["MarketName"] = market;
-        subObj["Results"] = resultObj;
-        CC1.push(resultObj);
-      });
+    let dump = JSON.parse(array);
+    let resultspage1 = dump.result;
+    //console.log("resultspage1",resultspage1[1]);
+    for (let i=1; i < resultspage1.length; i+= 1) {
+      let market = resultspage1[i].MarketName;
+      if (market.substring(0, 3) === "BTC") {
+        queryOrders(market).then(function(obj) {
+          let resultObj = resultspage1[i];
+          //let subObj = {};
+          resultObj["orderInfo"] = obj;
+          //subObj["MarketName"] = market;
+          //subObj["Results"] = resultObj;
+          CC1.push(resultObj);
+        });
+      }
     }
-  }
+    resolve();
   })
-
 }
 
 dbProm.then(function(collection) {
@@ -200,9 +200,11 @@ function recurring(collection) {
   CC1 = [];
   queryMarket().then(function(array) {
     let item = indexArr.pop();
+    console.log("item", item, indexArr)
     processDump(array, item, collection).then(function(obj) {
       let entryObj = {};
       entryObj[item] = CC1;
+      console.log("CC1",CC1);
       dbInsert(collection,entryObj);
       indexArr.unshift(item);
     });
