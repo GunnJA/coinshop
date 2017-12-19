@@ -252,7 +252,7 @@ function processLeDump(array) {
 
 
 dbProm.then(function() {
-  setInterval(recurring, 60000);
+  //setInterval(recurring, 60000);
   setTimeout(recurring, 1000);
 });
 
