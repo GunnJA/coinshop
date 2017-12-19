@@ -135,7 +135,9 @@ function queryOrders(market) {
         let body = Buffer.concat(chunks);
         let newStr = body.toString();
         let newJson = JSON.parse(newStr);
+        console.log(newJson.result)
         if (newJson == null) {
+          console.log()
           let obj = evalOrders(market,newJson.result);
           resolve(obj);
         } else {
