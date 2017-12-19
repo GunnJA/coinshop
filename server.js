@@ -143,6 +143,36 @@ function queryOrders(market) {
   })
 }
 
+function queryReddit(market) {
+  return new Promise(function(resolve,reject) {
+    let query = market.split("-")[1] + "%20coin";
+    let options = {
+      "method": "GET",
+      "hostname": "reddit.com",
+      "path": `/search.json?q=${query}&t=hour`,
+      "port": null
+    };
+
+    let req = http.request(options, function (res) {
+      let chunks = [];
+
+      res.on("data", function (chunk) {
+       // if chunk.result
+        chunks.push(chunk);
+      });
+
+      res.on("end", function () {
+        let body = Buffer.concat(chunks);
+        let newStr = body.toString();
+        let newJson = JSON.parse(newStr);
+        let obj = evalOrders(market,newJson.result)
+        resolve(obj);
+      });
+    });
+    req.end();
+  })
+}
+
 function evalOrders(market,arr) {
   if (arr[0]) {
     let buys = 0;
