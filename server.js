@@ -135,12 +135,15 @@ function queryOrders(market) {
         let body = Buffer.concat(chunks);
         let newStr = body.toString();
         let newJson = JSON.parse(newStr);
-        if (newStr.length === 43) {
-          console.log(newStr);
+        if (newJson == null) {
+          let obj = evalOrders(market,newJson.result);
+          resolve(obj);
+        } else {
+          let obj = {  "timeSpan": "error",
+                       "b-s": "error"
+                    };
+          resolve(obj);
         }
-        console.log("newJson",newStr.length);
-        let obj = evalOrders(market,newJson.result);
-        resolve(obj);
       });
     });
     req.end();
