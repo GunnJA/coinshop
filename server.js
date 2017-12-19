@@ -180,6 +180,9 @@ function queryReddit(market) {
     let newJson = JSON.parse(newStr);
     let results = newJson.data;
     let resultCount = results.children.length
+    if (resultCount > 10) {
+      console.log(results.children);
+    }
     resolve(resultCount);
       });
     });
