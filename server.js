@@ -154,6 +154,7 @@ function queryReddit(market) {
     };
 
     let req = http.request(options, function (res) {
+      console.log("reddit",res);
       let chunks = [];
 
       res.on("data", function (chunk) {
@@ -165,16 +166,45 @@ function queryReddit(market) {
         let body = Buffer.concat(chunks);
         let newStr = body.toString();
         let newJson = JSON.parse(newStr);
-        let obj = evalOrders(market,newJson.result)
+        let obj = redResults(market,newJson.result)
         resolve(obj);
       });
     });
     req.end();
   })
 }
+queryReddit("BTC-ADA")
 
 function evalOrders(market,arr) {
   if (arr[0]) {
+    let buys = 0;
+    let sells = 0;
+    let endTime = new Date(arr[0].TimeStamp);
+    let startTime= new Date(arr[arr.length - 1].TimeStamp);
+    let timeSpan = Math.ceil((endTime - startTime)/1000/60);
+    for (let i = 0; i < arr.length; i += 1) {
+      let item = arr[i];
+      if (item.FillType === "FILL") {
+        if (item.OrderType === "BUY") {
+          buys += 1;
+        } else {
+          sells += 1;
+        }
+      }
+    }
+    return { "timeSpan": timeSpan,
+             "b-s": buys - sells
+           }
+  } else  {
+    return { "timeSpan": "error",
+             "b-s": "error"
+           }
+  }  
+}
+
+function redResults(market,arr) {
+  if (arr[0]) {
+    console.log("reddit arr",arr);
     let buys = 0;
     let sells = 0;
     let endTime = new Date(arr[0].TimeStamp);
@@ -243,7 +273,7 @@ function processLeDump(array) {
 
 
 dbProm.then(function() {
-  setInterval(recurring, 30000);
+//  setInterval(recurring, 30000);
   setTimeout(recurring, 1000);
 });
 
