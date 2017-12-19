@@ -167,21 +167,22 @@ function queryReddit(market) {
     };
 
   let req = http.request(options, function (res) {
-  let chunks = [];
+  let chunks;
 
   res.on("data", function (chunk) {
-    chunks.push(chunk);
+    chunks = chunk;
   });
 
   res.on("end", function () {
-    let body = Buffer.concat(chunks);
+    //let body = Buffer.concat(chunks);
+    let body = Buffer.from(chunks)
     //console.log(body.toString());
-    let newStr = body.toString();
+    let newStr = c.toString();
     let newJson = JSON.parse(newStr);
     let results = newJson.data;
-    let resultCount = results.children.length
+    let resultCount = results.children.length;
     if (resultCount > 10) {
-      console.log(results.children);
+      console.log(newStr);
     }
     resolve(resultCount);
       });
