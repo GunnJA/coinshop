@@ -174,15 +174,16 @@ function queryReddit(market) {
   });
 
   res.on("end", function () {
+    console.log(options.hostname + options.path)
     let body = Buffer.concat(chunks);
     //console.log(body.toString());
     let newStr = body.toString();
     let newJson = JSON.parse(newStr);
     let results = newJson.data;
     let resultCount = results.children.length;
-     if (market === "BTC-ETH") {
-      console.log(results.children);
-    }
+     //if (market === "BTC-ETH") {
+     // console.log(results.children);
+    //}
     if (resultCount > 10) {
       console.log(market);
     }
