@@ -135,6 +135,10 @@ function queryOrders(market) {
         let body = Buffer.concat(chunks);
         let newStr = body.toString();
         let newJson = JSON.parse(newStr);
+        if (newStr.length === 43) {
+          console.log(newStr);
+        }
+        console.log("newJson",newStr.length);
         let obj = evalOrders(market,newJson.result);
         resolve(obj);
       });
@@ -180,7 +184,8 @@ function queryReddit(market) {
 //queryReddit("BTC-WAVES")
 
 function evalOrders(market,arr) {
-  if (arr) {
+  if (arr[0]) {
+    console.log("working");
     let buys = 0;
     let sells = 0;
     let endTime = new Date(arr[0].TimeStamp);
