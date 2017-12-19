@@ -10,7 +10,7 @@ $( window ).load(function() {
   recurring();
 });
 
-setInterval(recurring, 30000);
+setInterval(recurring, 60000);
 
 
 function recurring() {
@@ -84,19 +84,23 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
   newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Fluc %</td><td class="tg-6k2t">Daily High</td><td class="tg-6k2t">Daily Low</td><td class="tg-6k2t">% > Low</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(5)</td>`;
   newHTML += `<td class="tg-6k2t">TimeSpan(5)</td>`;
-  newHTML += `<td class="tg-6k2t">TimeSpan(5)</td>`;
+  newHTML += `<td class="tg-6k2t">RedditPosts(5)</td>`;
   newHTML += `<td class="tg-6k2t">B-S(5)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(4)</td>`;
   newHTML += `<td class="tg-6k2t">TimeSpan(4)</td>`;
+  newHTML += `<td class="tg-6k2t">RedditPosts(4)</td>`;
   newHTML += `<td class="tg-6k2t">B-S(4)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(3)</td>`;
   newHTML += `<td class="tg-6k2t">TimeSpan(3)</td>`;
+  newHTML += `<td class="tg-6k2t">RedditPosts(3)</td>`;
   newHTML += `<td class="tg-6k2t">B-S(3)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(2)</td>`;
   newHTML += `<td class="tg-6k2t">TimeSpan(2)</td>`;
+  newHTML += `<td class="tg-6k2t">RedditPosts(2)</td>`;
   newHTML += `<td class="tg-6k2t">B-S(2)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Latest Price</td>`;
   newHTML += `<td class="tg-6k2t">TimeSpan</td>`;
+  newHTML += `<td class="tg-6k2t">RedditPosts</td>`;
   newHTML += `<td class="tg-6k2t">Latest B-S</td></tr>`;
   $.each(arr1, function(key, value) {
     //console.log("arr1key", arr1[key]);
@@ -125,22 +129,27 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(${200-fluc}, ${200-fluc}, 200)">${Math.round(((item5.Last - item1.Low)/item1.Low)*100)}%</td>`;
       newHTML += `<td class="tg-6k2t">${item5.Last}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, 175, 205)">${OI5["timeSpan"]}</td>`;
+      newHTML += `<td class="tg-6k2t" style="background-color:rgb(${200-(item5.redditPosts*2)}, ${100+(item5.redditPosts*2)}, ${255-(item5.redditPosts*2)})">${item5.redditPosts}</td>`;      
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, ${125+OI5["b-s"]*2}, ${125+OI5["b-s"]*2})">${OI5["b-s"]}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor4}, 255, ${125-factor4})">${factor4}</td>`;
       newHTML += `<td class="tg-6k2t">${item4.Last}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, 175, 205)">${OI4["timeSpan"]}</td>`;
+      newHTML += `<td class="tg-6k2t" style="background-color:rgb(${200-(item4.redditPosts*2)}, ${100+(item4.redditPosts*2)}, ${255-(item4.redditPosts*2)})">${item4.redditPosts}</td>`;      
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, ${125+OI4["b-s"]*2}, ${125+OI4["b-s"]*2})">${OI4["b-s"]}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor3}, 255, ${125-factor3})">${factor3}</td>`;
       newHTML += `<td class="tg-6k2t">${item3.Last}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, 175, 205)">${OI3["timeSpan"]}</td>`;
+      newHTML += `<td class="tg-6k2t" style="background-color:rgb(${200-(item3.redditPosts*2)}, ${100+(item3.redditPosts*2)}, ${255-(item3.redditPosts*2)})">${item3.redditPosts}</td>`;      
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, ${125+OI3["b-s"]*2}, ${125+OI3["b-s"]*2})">${OI3["b-s"]}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor2}, 255, ${125-factor2})">${factor2}</td>`;
       newHTML += `<td class="tg-6k2t">${item2.Last}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, 175, 205)">${OI2["timeSpan"]}</td>`;
+      newHTML += `<td class="tg-6k2t" style="background-color:rgb(${200-(item2.redditPosts*2)}, ${100+(item2.redditPosts*2)}, ${255-(item2.redditPosts*2)})">${item2.redditPosts}</td>`;      
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, ${125+OI2["b-s"]*2}, ${125+OI2["b-s"]*2})">${OI2["b-s"]}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(${125+factor1}, 255, ${125-factor1})">${factor1}</td>`;
       newHTML += `<td class="tg-6k2t">${item1.Last}</td>`;
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, 175, 205)">${OI1["timeSpan"]}</td>`;
+      newHTML += `<td class="tg-6k2t" style="background-color:rgb(${200-(item1.redditPosts*2)}, ${100+(item1.redditPosts*2)}, ${255-(item1.redditPosts*2)})">${item1.redditPosts}</td>`;      
       newHTML += `<td class="tg-6k2t" style="background-color:rgb(205, ${125+OI1["b-s"]*2}, ${125+OI1["b-s"]*2})">${OI1["b-s"]}</td>`;
       newHTML += `<td><a href="${bittrexURL(item1Name)}">View</a></td>`;
           }
