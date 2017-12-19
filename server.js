@@ -156,8 +156,8 @@ function queryReddit(market) {
     let req = http.request(options, function (res) {
       let chunks = [];
       //console.log(res);
-      let data1 = res.data;
-      console.log(data1);
+      //let data1 = res._eventsCount;
+      //console.log(data1);
 
       res.on("data", function (chunk) {
        // if chunk.result
@@ -176,7 +176,7 @@ function queryReddit(market) {
     req.end();
   })
 }
-queryReddit("BTC-ADA")
+queryReddit("BTC-WAVES")
 
 function evalOrders(market,arr) {
   if (arr[0]) {
