@@ -139,7 +139,7 @@ function queryOrders(market) {
           let obj = evalOrders(market,newJson.result);
           resolve(obj);
         } else {
-          console.log(newStr)
+          //console.log(JSON.parse(newStr))
           let obj = {  "timeSpan": "error",
                        "b-s": "error"
                     };
