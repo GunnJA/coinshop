@@ -174,7 +174,7 @@ function queryReddit(market) {
   });
 
   res.on("end", function () {
-    console.log(options.hostname + options.path)
+    //console.log(options.hostname + options.path)
     let body = Buffer.concat(chunks);
     //console.log(body.toString());
     let newStr = body.toString();
@@ -186,6 +186,7 @@ function queryReddit(market) {
     //}
     if (resultCount > 10) {
       console.log(market);
+      console.log(results.children);
     }
     resolve(resultCount);
       });
