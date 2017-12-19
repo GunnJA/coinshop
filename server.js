@@ -159,7 +159,7 @@ function queryReddit(market) {
       "method": "GET",
       "hostname": "www.reddit.com",
       "port": null,
-      "path": `/search.json?q=${query}&t=hour`,
+      "path": `/search.json?q=${query}&t=hour&type=link`,
       "headers": {
         "cache-control": "no-cache",
         "postman-token": "301336c0-2f6d-d268-ff9a-7e5f30fc1c88"
@@ -167,22 +167,24 @@ function queryReddit(market) {
     };
 
   let req = http.request(options, function (res) {
-  let chunks;
+  let chunks = [];
 
   res.on("data", function (chunk) {
-    chunks = chunk;
+    chunks.push(chunk);
   });
 
   res.on("end", function () {
-    //let body = Buffer.concat(chunks);
-    let body = Buffer.from(chunks)
+    let body = Buffer.concat(chunks);
     //console.log(body.toString());
-    let newStr = c.toString();
+    let newStr = body.toString();
     let newJson = JSON.parse(newStr);
     let results = newJson.data;
     let resultCount = results.children.length;
+     if (market === "BTC-ETH") {
+      console.log(results.children);
+    }
     if (resultCount > 10) {
-      console.log(newStr);
+      console.log(market);
     }
     resolve(resultCount);
       });
@@ -190,7 +192,6 @@ function queryReddit(market) {
     req.end();
   })
 }
-//queryReddit("BTC-WAVES")
 
 function evalOrders(market,arr) {
   if (arr != []) {
