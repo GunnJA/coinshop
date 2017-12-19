@@ -154,12 +154,12 @@ function queryReddit(market) {
     };
 
     let req = http.request(options, function (res) {
-      console.log("reddit",res);
       let chunks = [];
 
       res.on("data", function (chunk) {
        // if chunk.result
-        chunks.push(chunk);
+        console.log("chunk",chunk.data);
+        chunks.push(chunk.data);
       });
 
       res.on("end", function () {
