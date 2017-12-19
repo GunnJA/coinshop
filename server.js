@@ -180,7 +180,7 @@ function queryReddit(market) {
 //queryReddit("BTC-WAVES")
 
 function evalOrders(market,arr) {
-  if (arr[0]) {
+  if (arr) {
     let buys = 0;
     let sells = 0;
     let endTime = new Date(arr[0].TimeStamp);
