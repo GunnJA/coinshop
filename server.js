@@ -135,7 +135,7 @@ function queryOrders(market) {
         let body = Buffer.concat(chunks);
         let newStr = body.toString();
         let newJson = JSON.parse(newStr);
-        let obj = evalOrders(market,newJson.result)
+        let obj = evalOrders(market,newJson.result);
         resolve(obj);
       });
     });
