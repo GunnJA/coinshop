@@ -135,21 +135,16 @@ function queryOrders(market) {
         let body = Buffer.concat(chunks);
         let newStr = body.toString();
         let newJson = JSON.parse(newStr);
-        if (market === "BTC-XMG") {
-          console.log(newStr)
-        }
-        let x = newJson.result;
-        //if (newJson === undefined || newJson === null) {
-        if (x === []) {
+        if (newJson.result === [] || newJson.result === null) {
+       // if (x === []) {
         //console.log(JSON.parse(newStr))
           let obj = {  "timeSpan": "error",
                        "b-s": "error"
                     };
           console.log("no new json", market)
-
+          resolve(obj);
         } else {
           let obj = evalOrders(market,newJson.result);
-          resolve(obj);
           resolve(obj);
         }
       });
@@ -195,7 +190,7 @@ function queryReddit(market) {
 //queryReddit("BTC-WAVES")
 
 function evalOrders(market,arr) {
-  if (arr[0]) {
+  if (arr != []) {
    // console.log("working");
     let buys = 0;
     let sells = 0;
