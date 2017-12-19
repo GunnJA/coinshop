@@ -150,37 +150,36 @@ function queryReddit(market) {
       "method": "GET",
       "hostname": "www.reddit.com",
       "port": null,
-      "path": "/search.json?q=ada%20coin&t=hour",
+      "path": "/search.json?q=xrp%20coin&t=hour",
       "headers": {
         "cache-control": "no-cache",
         "postman-token": "301336c0-2f6d-d268-ff9a-7e5f30fc1c88"
       }
     };
 
-    let req = http.request(options, function (res) {
-      let chunks = [];
-      console.log(res);
-      //let data1 = res._eventsCount;
-      //console.log(data1);
+  let req = http.request(options, function (res) {
+  let chunks = [];
 
-      res.on("data", function (chunk) {
-       // if chunk.result
-        console.log("chunk",chunk.data);
-        chunks.push(chunk.data);
-      });
+  res.on("data", function (chunk) {
+    chunks.push(chunk);
+  });
 
-      res.on("end", function () {
-        let body = Buffer.concat(chunks);
-        let newStr = body.toString();
-        let newJson = JSON.parse(newStr);
-        let obj = redResults(market,newJson.result)
-        resolve(obj);
+  res.on("end", function () {
+    let body = Buffer.concat(chunks);
+    //console.log(body.toString());
+    let newStr = body.toString();
+    let newJson = JSON.parse(newStr);
+    let results = newJson.data;
+    let resultCount = results.children.length
+    console.log(resultCount)
+    let obj = redResults(market,resultCount)
+    resolve(obj);
       });
     });
     req.end();
   })
 }
-queryReddit("BTC-WAVES")
+//queryReddit("BTC-WAVES")
 
 function evalOrders(market,arr) {
   if (arr[0]) {
