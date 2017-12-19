@@ -148,14 +148,18 @@ function queryReddit(market) {
     let query = market.split("-")[1] + "%20coin";
     let options = {
       "method": "GET",
-      "hostname": "reddit.com",
-      "path": `/search.json?q=${query}&t=hour`,
-      "port": null
+      "hostname": "www.reddit.com",
+      "port": null,
+      "path": "/search.json?q=ada%20coin&t=hour",
+      "headers": {
+        "cache-control": "no-cache",
+        "postman-token": "301336c0-2f6d-d268-ff9a-7e5f30fc1c88"
+      }
     };
 
     let req = http.request(options, function (res) {
       let chunks = [];
-      //console.log(res);
+      console.log(res);
       //let data1 = res._eventsCount;
       //console.log(data1);
 
