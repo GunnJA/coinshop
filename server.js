@@ -135,15 +135,14 @@ function queryOrders(market) {
         let body = Buffer.concat(chunks);
         let newStr = body.toString();
         let newJson = JSON.parse(newStr);
-        if (newJson.result === [] || newJson.result === null) {
-       // if (x === []) {
-        //console.log(JSON.parse(newStr))
+        if ( newJson.result === null || newJson.result.length === 0) {
           let obj = {  "timeSpan": "error",
                        "b-s": "error"
                     };
-          console.log("no new json", market)
+          //console.log("no new json", market)
           resolve(obj);
         } else {
+          //console.log("new json", market)
           let obj = evalOrders(market,newJson.result);
           resolve(obj);
         }
