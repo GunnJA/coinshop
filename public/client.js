@@ -84,6 +84,7 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
   newHTML += `<tr><td class="tg-6k2t">MarketName</td><td class="tg-6k2t">Fluc %</td><td class="tg-6k2t">Daily High</td><td class="tg-6k2t">Daily Low</td><td class="tg-6k2t">% > Low</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(5)</td>`;
   newHTML += `<td class="tg-6k2t">TimeSpan(5)</td>`;
+  newHTML += `<td class="tg-6k2t">TimeSpan(5)</td>`;
   newHTML += `<td class="tg-6k2t">B-S(5)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(4)</td>`;
   newHTML += `<td class="tg-6k2t">TimeSpan(4)</td>`;

@@ -150,7 +150,7 @@ function queryReddit(market) {
       "method": "GET",
       "hostname": "www.reddit.com",
       "port": null,
-      "path": "/search.json?q=xrp%20coin&t=hour",
+      "path": `/search.json?q=${query}&t=hour`,
       "headers": {
         "cache-control": "no-cache",
         "postman-token": "301336c0-2f6d-d268-ff9a-7e5f30fc1c88"
@@ -171,9 +171,7 @@ function queryReddit(market) {
     let newJson = JSON.parse(newStr);
     let results = newJson.data;
     let resultCount = results.children.length
-    console.log(resultCount)
-    let obj = redResults(market,resultCount)
-    resolve(obj);
+    resolve(resultCount);
       });
     });
     req.end();
@@ -183,34 +181,6 @@ function queryReddit(market) {
 
 function evalOrders(market,arr) {
   if (arr[0]) {
-    let buys = 0;
-    let sells = 0;
-    let endTime = new Date(arr[0].TimeStamp);
-    let startTime= new Date(arr[arr.length - 1].TimeStamp);
-    let timeSpan = Math.ceil((endTime - startTime)/1000/60);
-    for (let i = 0; i < arr.length; i += 1) {
-      let item = arr[i];
-      if (item.FillType === "FILL") {
-        if (item.OrderType === "BUY") {
-          buys += 1;
-        } else {
-          sells += 1;
-        }
-      }
-    }
-    return { "timeSpan": timeSpan,
-             "b-s": buys - sells
-           }
-  } else  {
-    return { "timeSpan": "error",
-             "b-s": "error"
-           }
-  }  
-}
-
-function redResults(market,arr) {
-  if (arr[0]) {
-    console.log("reddit arr",arr);
     let buys = 0;
     let sells = 0;
     let endTime = new Date(arr[0].TimeStamp);
@@ -253,16 +223,19 @@ function forLoop(arr) {
         queryOrders(market).then(function(obj) {
           let resultObj = page;
           resultObj["orderInfo"] = obj;
-          let upperObj = {};
-          dumpObj[market] = resultObj;
-          latestTemp.push(resultObj);
-          if (latestTemp.length === 199) {
-            console.log("len",arr.length);
-            //console.log("CC1 up",CC1);
-            latest = latestTemp;
-            resolve(dumpObj);
-          }
-        })
+          queryReddit(market).then(function(str) {
+            resultObj["redditPosts"] = str;
+            let upperObj = {};
+            dumpObj[market] = resultObj;
+            latestTemp.push(resultObj);
+            if (latestTemp.length === 199) {
+              console.log("len",arr.length);
+              //console.log("CC1 up",CC1);
+              latest = latestTemp;
+              resolve(dumpObj);
+            }
+          });
+        });
       }
     }
   });
