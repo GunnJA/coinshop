@@ -179,11 +179,11 @@ function queryReddit(path) {
   });
 
   res.on("end", function () {
-    //console.log(options.hostname + options.path)
     let body = Buffer.concat(chunks);
     console.log("path",path);
     //console.log(body.toString());
     let newStr = body.toString();
+    //console.log("chunks",newStr);        
     let newJson = JSON.parse(newStr);
     let results = newJson.data;
     let resultCount = results.children.length;
@@ -246,7 +246,7 @@ function forLoop(arr) {
         queryOrders(market).then(function(obj) {
           let resultObj = page;
           resultObj["orderInfo"] = obj;
-          queryReddit(reddSubs.market).then(function(str) {
+          queryReddit(reddSubs[market]).then(function(str) {
             resultObj["redditPosts"] = str;
             let upperObj = {};
             dumpObj[market] = resultObj;
