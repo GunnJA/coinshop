@@ -10,7 +10,7 @@ let offsetDefault = 10;
 let database;
 let collCoinRoll;
 //let collectCoins2;
-let dump;
+let reddSubs; 
 let indexArr = ["a", "b", "c", "d", "e"];
 let latest = [];
 //https://www.reddit.com/search.json?q=xvg&t=hour
@@ -21,10 +21,10 @@ let dbProm = new Promise(function(resolve, reject) {
       if (err) throw err
       else console.log("db connection successful");
       collCoinRoll = db.collection("coinRoll");
-      let collReddSubs = db.collection("reddSubs ");
-      dbFindAll(collReddSubs,{}).then(function(obj) {
-        console.log(obj);
-              resolve();
+      let collReddSubs = db.collection("reddSubs");
+      dbFindOne(collReddSubs,{}).then(function(obj) {
+        reddSubs = obj;
+        resolve();
         });
 
   // db.close();
@@ -157,14 +157,14 @@ function queryOrders(market) {
   })
 }
 
-function queryReddit(market) {
+function queryReddit(path) {
   return new Promise(function(resolve,reject) {
-    let query = market.split("-")[1] + "%20coin";
+    //let query = market.split("-")[1] + "%20coin";
     let options = {
       "method": "GET",
       "hostname": "www.reddit.com",
       "port": null,
-      "path": `/search.json?q=${query}&t=hour&type=link`,
+      "path": path,
       "headers": {
         "cache-control": "no-cache",
         "postman-token": "301336c0-2f6d-d268-ff9a-7e5f30fc1c88"
@@ -181,6 +181,7 @@ function queryReddit(market) {
   res.on("end", function () {
     //console.log(options.hostname + options.path)
     let body = Buffer.concat(chunks);
+    console.log("path",path);
     //console.log(body.toString());
     let newStr = body.toString();
     let newJson = JSON.parse(newStr);
@@ -245,7 +246,7 @@ function forLoop(arr) {
         queryOrders(market).then(function(obj) {
           let resultObj = page;
           resultObj["orderInfo"] = obj;
-          queryReddit(market).then(function(str) {
+          queryReddit(reddSubs.market).then(function(str) {
             resultObj["redditPosts"] = str;
             let upperObj = {};
             dumpObj[market] = resultObj;
