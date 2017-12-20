@@ -180,7 +180,7 @@ function queryReddit(path) {
 
   res.on("end", function () {
     let body = Buffer.concat(chunks);
-    console.log("path",path);
+    //console.log("path",path);
     //console.log(body.toString());
     let newStr = body.toString();
     //console.log("chunks",newStr);        
