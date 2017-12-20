@@ -21,7 +21,12 @@ let dbProm = new Promise(function(resolve, reject) {
       if (err) throw err
       else console.log("db connection successful");
       collCoinRoll = db.collection("coinRoll");
-      resolve(collCoinRoll);
+      let collReddSubs = db.collection("reddSubs ");
+      dbFindAll(collReddSubs,{}).then(function(obj) {
+        console.log(obj);
+              resolve();
+        });
+
   // db.close();
   });
 });
@@ -184,10 +189,10 @@ function queryReddit(market) {
      //if (market === "BTC-ETH") {
      // console.log(results.children);
     //}
-    if (resultCount > 10) {
-      console.log(market);
-      console.log(results.children);
-    }
+    //if (resultCount > 10) {
+    //  console.log(market);
+    //  console.log(results.children);
+    //}
     resolve(resultCount);
       });
     });
