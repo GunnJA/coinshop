@@ -88,19 +88,19 @@ function displayData(arr1, obj2, obj3, obj4, obj5) {
   newHTML += `<td class="tg-6k2t">B-S(5)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(4)</td>`;
   newHTML += `<td class="tg-6k2t">TimeSpan(4)</td>`;
-  newHTML += `<td class="tg-6k2t">RedditPosts(Δ)</td>`;
+  newHTML += `<td class="tg-6k2t">RedditΔ</td>`;
   newHTML += `<td class="tg-6k2t">B-S(4)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(3)</td>`;
   newHTML += `<td class="tg-6k2t">TimeSpan(3)</td>`;
-  newHTML += `<td class="tg-6k2t">RedditPosts(Δ)</td>`;
+  newHTML += `<td class="tg-6k2t">RedditΔ</td>`;
   newHTML += `<td class="tg-6k2t">B-S(3)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Last Price(2)</td>`;
   newHTML += `<td class="tg-6k2t">TimeSpan(2)</td>`;
-  newHTML += `<td class="tg-6k2t">RedditPosts(Δ)</td>`;
+  newHTML += `<td class="tg-6k2t">RedditΔ</td>`;
   newHTML += `<td class="tg-6k2t">B-S(2)</td><td class="tg-6k2t">Δ</td>`;
   newHTML += `<td class="tg-6k2t">Latest Price</td>`;
   newHTML += `<td class="tg-6k2t">TimeSpan</td>`;
-  newHTML += `<td class="tg-6k2t">RedditPosts(Δ)</td>`;
+  newHTML += `<td class="tg-6k2t">RedditΔ</td>`;
   newHTML += `<td class="tg-6k2t">Latest B-S</td></tr>`;
   $.each(arr1, function(key, value) {
     //console.log("arr1key", arr1[key]);
