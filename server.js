@@ -247,7 +247,9 @@ function forLoop(arr) {
           let resultObj = page;
           resultObj["orderInfo"] = obj;
           queryReddit(reddSubs[market]).then(function(str) {
+            let reddLink = reddSubs[market];
             resultObj["redditPosts"] = str;
+            resultObj["redditLink"] = "https://www.reddit.com" + reddLink.replace(".json","");
             let upperObj = {};
             dumpObj[market] = resultObj;
             latestTemp.push(resultObj);
@@ -319,6 +321,12 @@ app.get("/get/CC4", function (req, res) {
 
 app.get("/get/CC5", function (req, res) {
   dbFindOne(collCoinRoll, { "item": indexArr[4] }).then(function(obj) {
+    res.send(obj);
+  });
+});
+
+app.get("/get/links", function (req, res) {
+  dbFindOne(reddSubs, { "item": indexArr[4] }).then(function(obj) {
     res.send(obj);
   });
 });
